@@ -1,0 +1,90 @@
+====================================================================================================
+REPORTE DE LIMPIEZA Y PREPARACIÓN DE DATOS
+====================================================================================================
+Fecha generación: 2026-04-13 23:48:07
+
+1. RESUMEN EJECUTIVO
+----------------------------------------------------------------------------------------------------
+Filas originales: 100,000
+Filas finales: 100,000
+Retención: 100.00%
+
+Columnas originales: 20
+Columnas finales: 40
+Features nuevas: 20 (+100.0%)
+
+2. DECISIONES DE LIMPIEZA
+----------------------------------------------------------------------------------------------------
+✓ Mantener nulos estructurales (Offer_Salary cuando Offer_Received=0)
+  Justificación: No son errores, son información válida
+  Impacto: 0% pérdida de información
+
+✓ Eliminar duplicados
+  Encontrados: 0 duplicados
+  Impacto: 0% cambio
+
+✓ Validar y corregir tipos de datos
+  Cambios: int/float/object estandarizados
+  Impacto: Previene errores en análisis
+
+✓ Estandarizar categorías (trim, capitalization)
+  Cambios: Typos corregidos
+  Impacto: Mejora poder predictivo
+
+✓ Mantener outliers
+  Razón: Datos reales (FAANG, top students)
+  Impacto: Preserva distribución verdadera
+
+3. FEATURES CREADAS
+----------------------------------------------------------------------------------------------------
++ has_offer_info                : Indicador si estudiante tiene oferta
++ salary_is_missing             : Flag si Offer_Salary es nulo (cuando debería tener)
++ conversion_app_1st            : Tasa de conversión: aplicaciones → 1ra ronda
++ conversion_1st_2nd            : Tasa de conversión: 1ra → 2da ronda
++ experience_score              : Score ponderado de experiencia
++ GPA_zscore_by_major           : GPA normalizado dentro de su major
++ has_salary_data               : Indicador si tiene datos de salario
++ has_time_to_offer_data        : Indicador si tiene datos de tiempo a oferta
+
+4. VALIDACIÓN POST-LIMPIEZA
+----------------------------------------------------------------------------------------------------
+✓ Tipos validados: int64/float64/object
+✓ Nulos estructurales confirmados
+✓ Sin duplicados confirmado
+✓ Outliers marcados pero mantenidos
+✓ Rangos validados (GPA, Salary, etc.)
+✓ Categorías estandarizadas
+✓ Features derivadas sin data leakage
+
+5. ESTADÍSTICAS DE VARIABLES
+----------------------------------------------------------------------------------------------------
+
+GPA:
+  Tipo: float64
+  Nulos: 0
+  Estadísticas: min=2.00, max=4.00, mean=3.20
+
+Prior_Internships:
+  Tipo: int64
+  Nulos: 0
+  Estadísticas: min=0.00, max=5.00, mean=1.20
+
+Extra_Curricular_Activities:
+  Tipo: int64
+  Nulos: 0
+  Estadísticas: min=0.00, max=11.00, mean=2.00
+
+Networking_Events_Attended:
+  Tipo: int64
+  Nulos: 0
+  Estadísticas: min=0.00, max=14.00, mean=3.00
+
+6. PRÓXIMOS PASOS
+----------------------------------------------------------------------------------------------------
+El dataset limpio está listo para:
+1. Análisis exploratorio detallado (EDA)
+2. Ingeniería de features avanzada
+3. Modelado predictivo (Offer_Received, Offer_Salary)
+4. Validación de hipótesis
+
+====================================================================================================

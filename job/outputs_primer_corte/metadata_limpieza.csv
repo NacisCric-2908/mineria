@@ -1,0 +1,2 @@
+original_rows,cleaned_rows,rows_removed,original_columns,final_columns,new_features,cleaning_date,duplicates_found
+100000,100000,0,20,40,20,2026-04-13 23:48:07,0
