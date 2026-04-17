@@ -16,6 +16,7 @@ Analizar la eficacia del embudo de busqueda laboral estudiantil y preparar base 
 - `guia.txt`: marco de trabajo (problema, datos, limpieza, EDA, interpretacion, entregables).
 - `job_search_platform_efficacy_100k.csv`: dataset original (100,000 filas, 20 columnas).
 - `primerCorte.ipynb`: notebook integral del primer corte (diagnostico, limpieza, EDA, interpretacion, plan siguiente).
+- `consolidar_outputs_primer_corte.py`: script reproducible de consolidacion de outputs redundantes en archivos maestros.
 - `requirements.txt`: stack analitico Python.
 - `outputs_primer_corte/`: artefactos de salida para trazabilidad, insight y continuidad.
 
@@ -110,11 +111,15 @@ Metrica global de resultado:
 - `conclusiones_ejecutivas_primer_corte.csv`: conclusiones accionables sintetizadas.
 - `01_factores_comparativa.csv`: ranking de factores por magnitud y accionabilidad.
 - `02_recomendaciones_operativas.csv`: recomendaciones por horizonte temporal.
+- `insights_operativos_maestro.csv`: consolidado maestro de hallazgos ejecutivos, factores, recomendaciones, correlaciones y ranking de plataformas.
 
 ## 7.4 Guia y continuidad
 
-- `respuestas_guia_iniciales.csv`: respuestas base de guia de analisis.
 - `respuestas_guia_26_preguntas.csv`: banco extendido de respuestas de interpretacion.
+- `respuestas_guia_maestro.csv`: fuente oficial consolidada de respuestas de guia para consumo operativo.
+- `matriz_consolidacion_outputs.csv`: trazabilidad de que archivos fuente alimentan cada artefacto maestro.
+- `indice_outputs_finales.csv`: indice navegable de outputs finales con estado (maestro o soporte) y uso recomendado.
+- `inventario_outputs_clasificados.csv`: inventario operativo para distinguir tipo de archivo, uso real y accion recomendada.
 - `hipotesis_siguiente_iteracion.csv`: hipotesis para validar en siguiente ciclo.
 - `plan_modelado_dos_objetivos.csv`: roadmap del modelado A/B por fases.
 - `riesgos_modelado_y_mitigaciones.csv`: riesgos principales y mitigaciones.
@@ -193,6 +198,75 @@ Orden sugerido para el siguiente paso predictivo:
 2. Implementar baselines reproducibles para ambos objetivos.
 3. Optimizar hiperparametros y umbral (objetivo A) y error robusto (objetivo B).
 4. Ejecutar evaluacion por subgrupos y reporte de riesgo de sesgo.
+
+## 10) Plan de Segundo Corte - Modelado Predictivo
+
+**Documento Principal**: [PLAN_MODELADO_SECOND_ITERATION.md](PLAN_MODELADO_SECOND_ITERATION.md)
+
+El plan del segundo corte está completamente documentado en un archivo markdown ejecutable de ~9,000 palabras que incluye:
+
+### Contenido Estructura del Plan
+
+**7 Fases Secuenciales**:
+
+1. **Fase 1 - Gobernanza de Datos** (1-2 días): Congelación de dataset limpio, diccionario de variables, splits train/val/test estratificados
+2. **Fase 2 - Ingeniería de Variables** (3-4 días): Bloqueo de variables con fuga, codificación categórica, features derivadas, validación de leakage
+3. **Fase 3 - Baselines** (2-3 días): Modelos dummy, Logistic Regression, Decision Trees para establecer mínimos de comparación
+4. **Fase 4 - Optimización** (5-7 días): Búsqueda de hiperparámetros con XGBoost, LightGBM, validación cruzada anidada
+5. **Fase 5 - Evaluación Técnica y por Subgrupos** (4-5 días): Test final, análisis de equidad, evaluación segmentada por región/major/universidad
+6. **Fase 6 - Interpretabilidad y Decisión** (3-4 días): SHAP, feature importance, decision rules operativas, reportes ejecutivos
+7. **Fase 7 - Implementación y Monitoreo** (3-4 días): Versionado reproducible, pipeline de predicción, monitoreo de drift, retraining schedule
+
+### Criterios de Éxito Definidos
+
+**Clasificación** (Offer_Received):
+- ROC-AUC ≥ 0.70
+- F1-Score ≥ 0.55
+- Recall ≥ 0.50
+- Gap train-test < 0.05
+
+**Regresión** (Offer_Salary):
+- RMSE ≤ $18,000
+- R² ≥ 0.42
+- MAE ≤ $12,000
+- Residuales normales (p > 0.05)
+
+**Equidad**:
+- Disparate Impact Ratio > 0.80 (sin discriminación > 20%)
+- Consistencia ROC-AUC ± 0.05 entre regiones
+- Diferencia RMSE < $5,000 entre majors
+
+### Riesgos Identificados (10 total)
+
+Matriz de mitigación con probabilidad/impacto:
+- R1: Data Leakage (CRÍTICA)
+- R2: Sesgo por Subgrupos
+- R3: Desbalance de Clases
+- R4: Sobreajuste
+- R5-R10: Calidad, Drift, Interpretabilidad, Reproducibilidad, etc.
+
+### Hipótesis para Siguiente Iteración
+
+- H1: Segunda entrevista media relación entre aplicaciones y oferta
+- H2: Efecto de plataforma depende del major
+- H3: GPA amplificado por internships
+- H4: Networking > volumen de aplicaciones
+
+### Timeline Estimado
+
+**21-30 días calendario** (1 mes) con equipo multidisciplinaria:
+- 1x Data Scientist (full-time)
+- 1x Feature Engineer (0.5 FTE)
+- 1x Auditor Analítico (0.3 FTE)
+- 1x ML Engineer (0.5 FTE)
+- 1x PM (0.2 FTE)
+
+### Datos y Contexto de Entrada
+
+Utiliza como base:
+- `dataset_limpio_primer_corte.csv` (100,000 filas)
+- Hallazgos consolidados en outputs_primer_corte/
+- Correlaciones y predictores identificados en primer corte
 5. Exportar artefactos de la fase en una nueva carpeta de outputs (por ejemplo `outputs_modelado_segundo_corte/`).
 
 ## 10) Convencion de trabajo para futuras instancias
@@ -206,3 +280,31 @@ Si una instancia nueva entra al proyecto, debe:
 5. No borrar ni sobreescribir artefactos historicos sin versionado.
 
 Con esto se preserva continuidad tecnica, trazabilidad analitica y calidad metodologica.
+
+## 11) Estado del refactor profesional (abril 2026)
+
+Se implemento una primera fase de refactor para reducir sobrecarga sin perder informacion:
+
+1. `primerCorte.ipynb` ahora tiene una portada metodologica mas profesional y elimina interpretacion anticipada hardcodeada en introduccion.
+2. Se elimino duplicacion tecnica de setup en una seccion intermedia, reemplazandola por validacion de consistencia del entorno.
+3. Se agrego un bloque de utilidades para export y estandarizacion de secciones, con foco en mantenibilidad.
+4. Se consolidaron outputs redundantes en artefactos maestros de consulta principal.
+5. Se elimino el duplicado estricto `respuestas_guia_iniciales.csv` y se estandarizo `respuestas_guia_maestro.csv` como fuente oficial.
+
+Regla de continuidad desde este punto:
+
+- Consultar primero los archivos con estado `maestro` en `indice_outputs_finales.csv`.
+- Usar archivos `soporte` solo para trazabilidad fina o auditoria de detalle.
+
+Clasificacion practica de outputs (para uso diario):
+
+- `tipo = imagen_grafica_png`: imagenes de graficas listas para informe.
+- `tipo = tabla_reporte`: tablas para imprimir informacion y evidencia cuantitativa.
+- `estado_uso = maestro_activo`: salida prioritaria para lectura directa.
+- `estado_uso = soporte_generado_notebook`: salida de soporte que el notebook usa o exporta de forma directa.
+- `estado_uso = soporte_no_referenciado_directo`: soporte historico/tecnico que se conserva por trazabilidad.
+
+Politica de imagenes:
+
+- Todas las graficas exportadas en `outputs_primer_corte/` deben terminar en `.png`.
+- La verificacion de formatos se ejecuta automaticamente en `consolidar_outputs_primer_corte.py`.

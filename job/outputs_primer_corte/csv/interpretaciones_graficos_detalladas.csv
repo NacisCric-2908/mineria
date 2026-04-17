@@ -1,0 +1,9 @@
+grafico,evidencia,interpretacion
+Histograma de GPA,"Media=3.2, mediana=3.2, std=0.39",El rendimiento academico esta concentrado y no presenta dispersion extrema; permite segmentar perfiles competitivos sin recortes agresivos.
+Histograma de Applications_Submitted,"Media=53.73, mediana=42.0, max=300.0","La cola derecha confirma estrategias intensivas de aplicacion; conviene medir eficiencia, no solo volumen bruto."
+Boxplot de Applications_Submitted,Outliers IQR=3.37%,"Los extremos existen y se conservan porque representan comportamiento real de busqueda intensa, no errores de captura evidentes."
+Scatter Applications vs First_Round_Interviews,Correlacion Pearson=0.419,"Hay relacion positiva entre aplicar mas y obtener mas entrevistas, pero no lineal perfecta; la calidad del perfil sigue influyendo."
+Scatter GPA vs Offer_Salary,Correlacion Pearson=0.1292,"El GPA se asocia con salario, pero su fuerza no explica todo; plataforma, major y experiencia complementan la variacion salarial."
+Matriz de correlacion,Mayor correlacion positiva con Offer_Received: Second_Round_Interviews (0.5492),La conversion a entrevistas aparece como predictor cercano del resultado de oferta y orienta el disenio del modelo de clasificacion.
+Comparativo de plataforma,"Mejor=Handshake (36.99%), peor=Indeed (25.79%), brecha=11.2 pp",Existe diferencia operativa entre canales; priorizar el canal lider puede mejorar la probabilidad de oferta en estrategias de corto plazo.
+Comparativo salarial por major,"Mayor salario promedio=STEM ($86,432.05), menor=Humanities ($65,370.30), brecha=$21,061.75",La categoria academica condiciona el potencial salarial esperado y debe considerarse al calibrar expectativas de oferta.

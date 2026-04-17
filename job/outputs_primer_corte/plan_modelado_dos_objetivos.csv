@@ -1,7 +1,0 @@
-fase,objetivo_A_clasificacion,objetivo_B_regresion,entregable,criterio_exito
-F1 - Definicion y particion,Definir target Offer_Received y split estratificado train/valid/test,Filtrar subconjunto Offer_Received=1 para target Offer_Salary,Datasets versionados y diccionario de variables,Sin fuga de informacion y proporciones estables por clase
-F2 - Ingenieria de variables,"Codificacion categorica, estandarizacion y features de conversion del embudo","Features de perfil academico y experiencia, con control de colinealidad",Pipeline transformador reproducible,Transformaciones consistentes en train y test
-F3 - Baselines,Baseline logistic regression + arbol de decision,Baseline linear regression + random forest regressor,Benchmark inicial de desempeno,Superar baseline ingenuo en todas las metricas clave
-F4 - Optimizacion,XGBoost/LightGBM con ajuste de umbral y class_weight,Gradient boosting con ajuste de hiperparametros,Modelo candidato final por objetivo,Mejora robusta en validacion cruzada
-F5 - Evaluacion y sesgo,"Metricas: ROC-AUC, F1, Recall, Precision, matriz de confusion","Metricas: MAE, RMSE, R2 y error por cuantiles","Reporte tecnico por subgrupo (region, major, rating)",Desempeno consistente sin degradaciones severas por subgrupo
-F6 - Implementacion analitica,Score de probabilidad interpretable para priorizacion,Rango salarial esperado con banda de incertidumbre,Guia de uso para analistas + monitoreo mensual,Adopcion operativa y estabilidad de metricas en el tiempo

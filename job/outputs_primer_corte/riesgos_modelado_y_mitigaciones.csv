@@ -1,5 +1,0 @@
-riesgo,descripcion,mitigacion
-Fuga de informacion,Incluir variables derivadas del resultado final,Bloquear variables post-resultado en entrenamiento
-Sesgo por subgrupos,Peor desempeno en ciertas regiones/majors,Evaluacion segmentada y recalibracion
-Desbalance de clase,Sobreprediccion de clase mayoritaria en Offer_Received,"Class weights, tuning de umbral, metricas enfocadas en recall/F1"
-Sobreajuste,Modelo muy complejo con baja generalizacion,Validacion cruzada y control de complejidad

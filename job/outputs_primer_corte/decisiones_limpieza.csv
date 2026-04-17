@@ -1,4 +1,0 @@
-decision,justificacion,impacto,riesgo_evitar
-Eliminar duplicados exactos,Evitar sobre-representacion de observaciones repetidas.,Filas removidas: 0,Sesgo en metricas por conteos inflados
-Conservar nulos estructurales en variables de oferta,"Si Offer_Received=0, no existe salario/tiempo/relevancia/aceptacion aplicable.",Nulos estructurales conservados: 328855,Imputaciones artificiales que distorsionan la realidad del proceso
-Crear Interview_Conversion_Rate,Resume eficiencia del embudo de aplicacion a entrevista.,Se anade una metrica derivada para comparaciones entre perfiles,Evaluar solo volumen de aplicaciones sin eficiencia relativa

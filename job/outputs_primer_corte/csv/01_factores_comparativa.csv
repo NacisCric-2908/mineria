@@ -1,0 +1,9 @@
+Factor,Tipo,Valor,Magnitud,Actionable,Interpretación
+1. Second_Round_Interviews,Correlación,r=+0.5492,⭐⭐ (Muy Fuerte),✓ Sí (Capacitación),PREDICTOR MÁS FUERTE
+2. Primary_Search_Platform,Categoría,Handshake 37.0% vs Indeed 25.8%,Gap: 11.2 pp,✓ Sí (Reasignar),"MAYOR GAP, impacto inmediato"
+3. First_Round_Interviews,Correlación,r=+0.2200,⭐ (Fuerte),✓ Sí (Coaching),Segunda más predictiva
+4. Major_Category,Categoría,Business 35.5% vs Arts 32.5%,Gap: 3.1 pp,✓ Medianamente,"Gap moderado, puede ser demanda"
+5. Applications_Submitted,Correlación,r=+0.0116,⭐ (Débil-moderada),⚠️ No (Falsa Solución),CANTIDAD NO importa; CALIDAD sí
+6. GPA,Correlación,r=+0.0875,⭐ (Muy Débil),"✗ Bajo (Necesario, no suficiente)",Necesario pero NO determinante
+7. Region,Categoría,South 34.4% vs Northeast 34.0%,Gap: 0.45 pp,✗ No,EFECTIVAMENTE NEGLIGIBLE
+8. University_Rating,Categoría,Top-tier vs Lower-tier,Confounding severo,⚠️ Sesgo de entrada,"NO es causa, es selección"

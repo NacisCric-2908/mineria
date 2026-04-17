@@ -1,3 +1,0 @@
-etapa,filas_antes,filas_despues,columnas,nulos_totales,duplicados_exactos,duplicados_id
-carga_inicial,100000.0,100000,20,328855,0,0
-post_limpieza,100000.0,100000,21,328855,0,0

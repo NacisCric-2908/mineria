@@ -1,9 +1,0 @@
-pregunta,respuesta
-Tipo de problema,Descriptivo y explicativo en esta fase; base para prediccion posterior.
-Variable mas importante,"Offer_Received, con tasa global de 34.23% de exito."
-Riesgo de mala interpretacion,Confundir correlacion con causalidad y sobreestimar el efecto de una sola variable.
-Variables relevantes,"GPA, Applications_Submitted, First_Round_Interviews, University_Rating y plataforma principal."
-Sesgos evidentes,Posible sesgo de seleccion por distribucion desigual de categorias academicas y plataformas.
-Calidad de datos,No se detectan duplicados de identificador; los nulos de oferta son estructurales.
-Hallazgo principal inicial,La mejor tasa de oferta por plataforma es Handshake con 36.99%.
-Siguiente paso de modelo,Clasificacion para Offer_Received y regresion para Offer_Salary en casos con oferta.

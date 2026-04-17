@@ -100,9 +100,40 @@ En [job/outputs_primer_corte](job/outputs_primer_corte) se incluyen visualizacio
 - Correlaciones (heatmap)
 - Calidad y estructura del dataset
 
-## Siguiente iteracion recomendada
+## Siguiente iteracion: Segundo Corte - Modelado Predictivo
 
-Tomar como base [job/outputs_primer_corte/plan_modelado_dos_objetivos.csv](job/outputs_primer_corte/plan_modelado_dos_objetivos.csv) para desarrollar dos frentes:
+### Plan Detallado del Segundo Corte
 
-- Clasificacion: probabilidad de Offer_Received.
-- Regresion: estimacion de Offer_Salary (condicionada a tener oferta).
+El segundo corte está completamente especificado en [job/PLAN_MODELADO_SECOND_ITERATION.md](job/PLAN_MODELADO_SECOND_ITERATION.md).
+
+Este documento contiene:
+
+- **7 Fases secuenciales** de modelado (Gobernanza → Implementación)
+- **2 Objetivos paralelos**: 
+  - Modelo A: Clasificación para predecir `Offer_Received` (ROC-AUC ≥ 0.70)
+  - Modelo B: Regresión para estimar `Offer_Salary` (RMSE ≤ $18k)
+- **Criterios de éxito** técnicos, de equidad y reproducibilidad
+- **10 riesgos identificados** con matrices de mitigación
+- **4 hipótesis** para validar en próximas iteraciones
+- **Timeline**: 21-30 días con equipo multidisciplinaria
+
+### Librerías Adicionales Requeridas
+
+Para ejecutar el segundo corte, asegurate de que tu entorno incluya:
+
+```bash
+pip install -r job/requirements.txt
+```
+
+Nuevos paquetes agregados para modelado:
+- `xgboost>=1.7.6` - Gradient Boosting
+- `lightgbm>=4.1.0` - Gradient Boosting alternativo
+- `optuna>=3.1.2` - Hyperparameter tuning
+- `shap>=0.43.0` - Model interpretability
+
+### Pasos Inmediatos
+
+1. Revisar y aprobar [job/PLAN_MODELADO_SECOND_ITERATION.md](job/PLAN_MODELADO_SECOND_ITERATION.md)
+2. Actualizar el entorno: `pip install -r job/requirements.txt`
+3. Crear notebook `segundoCorte.ipynb` o extender `primerCorte.ipynb` células 44-91
+4. Seguir las 7 fases en orden estricto (dependencies secuenciales)

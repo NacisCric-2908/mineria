@@ -1,7 +1,25 @@
+# Core dependencies
 ipykernel==7.2.0
 numpy==2.4.4
 pandas==3.0.2
+
+# Visualization
 matplotlib==3.10.8
 seaborn==0.13.2
+
+# Machine Learning & Data Processing
 scikit-learn==1.8.0
 scipy==1.17.1
+
+# Gradient Boosting Models (for second iteration)
+xgboost==1.7.6
+lightgbm==4.1.0
+
+# Hyperparameter Tuning
+optuna==3.1.2
+
+# Model Interpretability
+shap==0.43.0
+
+# Additional utilities
+jupyter==1.0.0

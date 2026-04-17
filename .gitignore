@@ -3,6 +3,8 @@
 **/poetry.lock
 **/pyproject.toml
 **/.vscode/
+*.lock
+*.toml
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,pycharm
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,python,pycharm
