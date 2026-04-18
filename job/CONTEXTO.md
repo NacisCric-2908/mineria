@@ -91,8 +91,8 @@ Metrica global de resultado:
 
 ## 7.1 Datasets
 
-- `dataset_limpio_primer_corte.csv` (100,000 filas): version limpia base para analisis del primer corte.
-- `dataset_limpio_completo.csv` (100,000 filas): version extendida con encoding y features derivadas para modelado.
+- `dataset_offer_Received.csv` (100,000 filas): dataset de entrenamiento para clasificacion de `Offer_Received` con variables permitidas pre-resultado.
+- `dataset_offer_Salary.csv` (34,230 filas): dataset de entrenamiento para regresion de `Offer_Salary`, restringido a casos con `Offer_Received=1`.
 
 ## 7.2 Trazabilidad y calidad
 
@@ -264,7 +264,8 @@ Matriz de mitigación con probabilidad/impacto:
 ### Datos y Contexto de Entrada
 
 Utiliza como base:
-- `dataset_limpio_primer_corte.csv` (100,000 filas)
+- `dataset_offer_Received.csv` (100,000 filas)
+- `dataset_offer_Salary.csv` (~34,230 filas)
 - Hallazgos consolidados en outputs_primer_corte/
 - Correlaciones y predictores identificados en primer corte
 5. Exportar artefactos de la fase en una nueva carpeta de outputs (por ejemplo `outputs_modelado_segundo_corte/`).
@@ -275,7 +276,7 @@ Si una instancia nueva entra al proyecto, debe:
 
 1. Leer este documento completo primero.
 2. Validar que los outputs listados existan y no esten corruptos.
-3. Usar `dataset_limpio_completo.csv` como base de modelado (excepto justificacion contraria).
+3. Usar `dataset_offer_Received.csv` para clasificacion y `dataset_offer_Salary.csv` para regresion (excepto justificacion contraria).
 4. Mantener el estilo de razonamiento: argumento -> evidencia -> interpretacion -> decision.
 5. No borrar ni sobreescribir artefactos historicos sin versionado.
 

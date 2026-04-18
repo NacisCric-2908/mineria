@@ -39,10 +39,12 @@ Entender qué factores influyen en el éxito de un estudiante para obtener ofert
 
 ### FASE 1: Definición y Gobernanza de Datos
 
-**Objetivo**: Congelar el dataset limpio, documentar variables permitidas y crear separaciones reproducibles train/validation/test.
+**Objetivo**: Congelar los datasets por objetivo, documentar variables permitidas y crear separaciones reproducibles train/validation/test.
 
 **Actividades**:
-1. Crear versión final congelada del dataset limpio (`dataset_limpio_segundo_corte.csv`)
+1. Congelar versión final de los datasets objetivo:
+   - `dataset_offer_Received.csv` (clasificación)
+   - `dataset_offer_Salary.csv` (regresión)
 2. Construir diccionario de variables especificando:
    - Tipo de dato (numérico, categórico, ordinal)
    - Rango esperado y valores únicos
@@ -51,6 +53,49 @@ Entender qué factores influyen en el éxito de un estudiante para obtener ofert
    - **Estrategia**: Estratificar por `Offer_Received` (para clasificación) y quintiles de salario (para regresión)
    - **Proporciones**: 70% train, 15% validation, 15% test
 4. Crear un registro de decisiones de gobernanza (quién decide qué variable se incluye/excluye)
+
+#### 1.1 Política de Entrada para Inferencia: Banco de Respuestas vs Libertad por Rangos
+
+Esta política define cómo se capturan entradas del usuario para scoring real (formulario, API o front-end).
+
+**Regla general**:
+- Variables categóricas usan **banco de respuestas cerrado** (lista fija de opciones válidas).
+- Variables numéricas usan **libertad de entrada**, pero con **rangos validados** y clipping/flag de outliers.
+
+##### A) Variables con banco de respuestas (cerradas)
+
+| Variable | Tipo | Respuestas permitidas |
+|----------|------|-----------------------|
+| `University_Rating` | Categórica | `Top-tier`, `Mid-tier`, `Lower-tier` |
+| `Major_Category` | Categórica | `Engineering`, `Computer Science`, `Business`, `Humanities`, `Sciences` |
+| `Region` | Categórica | `North`, `South`, `East`, `West` |
+| `School_Size` | Categórica | `Small`, `Medium`, `Large` |
+| `Primary_Search_Platform` | Categórica | `Handshake`, `LinkedIn`, `Indeed`, `ZipRecruiter` |
+
+##### B) Variables con libertad de entrada, pero por rangos
+
+| Variable | Tipo | Rango válido operativo | Regla de validación |
+|----------|------|------------------------|---------------------|
+| `GPA` | Numérica continua | 0.00 a 4.00 | Rechazar fuera de rango; redondear a 2-3 decimales |
+| `Prior_Internships` | Entera | 0 a 10 | Entero no negativo |
+| `Extra_Curricular_Activities` | Entera | 0 a 15 | Entero no negativo |
+| `Networking_Events_Attended` | Entera | 0 a 30 | Entero no negativo |
+| `Months_Searching` | Entera | 0 a 36 | Entero no negativo |
+| `Applications_Submitted` | Entera | 0 a 500 | Entero no negativo |
+| `First_Round_Interviews` | Entera | 0 a 50 | Entero no negativo |
+| `Second_Round_Interviews` | Entera | 0 a 30 | Entero no negativo y `Second_Round_Interviews <= First_Round_Interviews` |
+
+##### C) Reglas de consistencia entre variables
+
+1. `First_Round_Interviews <= Applications_Submitted`
+2. `Second_Round_Interviews <= First_Round_Interviews`
+3. Si `Applications_Submitted = 0`, entonces entrevistas deben ser 0
+4. Guardar bandera `input_validated` y `validation_warnings` para auditoría
+
+##### D) Cobertura por objetivo
+
+- **Modelo A (`Offer_Received`)**: usa A + B (todas las variables predictoras permitidas).
+- **Modelo B (`Offer_Salary`)**: usa A + B en candidatos con oferta esperada/confirmada; no solicita variables post-resultado para evitar leakage.
 
 **Entregables**:
 - `gobernanza_variables.csv` (listado de variables permitidas/bloqueadas con justificación)
@@ -773,7 +818,8 @@ A partir de hallazgos de este primer corte, la siguiente iteración debe probar:
 ## 8. RECURSOS REQUERIDOS
 
 ### 8.1 Datos
-- Dataset limpio congelado: `dataset_limpio_primer_corte.csv` ✓ (disponible)
+- Dataset clasificación congelado: `dataset_offer_Received.csv` ✓ (disponible)
+- Dataset regresión congelado: `dataset_offer_Salary.csv` ✓ (disponible)
 - Cualquier variable adicional (a confirmar con BI)
 
 ### 8.2 Herramientas
@@ -839,10 +885,11 @@ Estado: **Pendiente de Aprobación**
 
 ## APÉNDICE B: Referencias y Documentación Relacionada
 
-1. **Dataset Limpio**: `job/outputs_primer_corte/csv/dataset_limpio_primer_corte.csv`
-2. **Reporte Primer Corte**: `job/outputs_primer_corte/csv/respuestas_guia_26_preguntas.csv`
-3. **Diccionario de Variables**: `job/CONTEXTO.md` (anterior analysis)
-4. **Decisiones de Limpieza**: `job/outputs_primer_corte/csv/decisiones_limpieza.csv`
+1. **Dataset Clasificación**: `job/outputs_primer_corte/csv/dataset_offer_Received.csv`
+2. **Dataset Regresión**: `job/outputs_primer_corte/csv/dataset_offer_Salary.csv`
+3. **Reporte Primer Corte**: `job/outputs_primer_corte/csv/respuestas_guia_26_preguntas.csv`
+4. **Diccionario de Variables**: `job/CONTEXTO.md` (anterior analysis)
+5. **Decisiones de Limpieza**: `job/outputs_primer_corte/csv/decisiones_limpieza.csv`
 
 ---
 

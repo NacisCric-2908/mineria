@@ -560,9 +560,11 @@ Esto es MERCADO, no injusticia de datos (aunque hay injusticia en el mundo real)
 #### MEDIANO PLAZO (3-6 meses)
 
 5. **Preparar para modelado predictivo**
-   - Con estos hallazgos, podemos construir modelos que predicen "¿Este estudiante recibirá oferta?"
+   - Con estos hallazgos, podemos construir dos modelos: "¿Este estudiante recibirá oferta?" y "¿qué salario esperaría si recibe oferta?"
    - Usar para identificar estudiantes en riesgo tempranamente
    - Intervenir antes de que "se pierdan en el embudo"
+   - Operar con datasets por objetivo: `dataset_offer_Received.csv` (clasificación) y `dataset_offer_Salary.csv` (regresión)
+   - Aplicar política de entrada: categóricas con banco de respuestas y numéricas libres dentro de rangos validados
 
 6. **Establecer benchmarks**
    - Por major: "Humanidades debería alcanzar 35% tasa de oferta" (vs 28% hoy)
@@ -653,6 +655,8 @@ Antes de tu examen, asegúrate de entender:
 **Para recordar fácil:**
 
 > De 100,000 estudiantes, 66,000 NO consigue oferta. La variable que mejor predice éxito es **llegar a 2ª ronda de entrevista** (r=0.55). El **factor más accionable es la plataforma** (Handshake da +15pp vs Indeed). Sorpresas: **GPA importa poco** (r=0.18), **aplicaciones masivas no ayudan** (r=0.01), **prestige universitario casi no importa** (r=0.10). El real cuello de botella es **pasar de 1ª a 2ª ronda**. Recomendación: Invertir en 2ª ronda interview prep y validar si Handshake es causal o selección.
+
+> Para el segundo corte, el diseño queda separado por objetivo: `dataset_offer_Received.csv` para clasificar oferta y `dataset_offer_Salary.csv` para regresión salarial en casos con oferta. La captura de variables debe combinar banco de respuestas (categóricas) y libertad con rangos (numéricas), con validaciones de consistencia entre entrevistas y aplicaciones.
 
 ---
 
