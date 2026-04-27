@@ -1,139 +1,123 @@
-# Mineria de Datos - Proyecto Job Search (enfoque exclusivo en job/)
+# Mineria de Datos - Proyecto Job Search
 
-Este repositorio contiene varios recursos, pero este README documenta **solo** el trabajo de la carpeta [job](job).
+Este README documenta unicamente el trabajo contenido en la carpeta [job](job).
 
 ## Objetivo del proyecto
 
-Analizar la eficacia de plataformas de busqueda laboral estudiantil con un dataset de 100,000 registros, cubriendo:
+Analizar la eficacia de la busqueda laboral estudiantil con un dataset de 100,000 registros, cubriendo:
 
-- Comprension del problema de negocio y analitico.
-- Calidad, limpieza y preparacion de datos.
-- Analisis exploratorio (EDA) con visualizaciones.
-- Interpretacion de hallazgos y definicion de siguiente iteracion de modelado.
+- entendimiento del problema de negocio y analitico,
+- limpieza y calidad de datos,
+- analisis exploratorio (EDA),
+- definicion de la siguiente iteracion de modelado predictivo.
 
-## Alcance de este README
+## Alcance
 
-- Incluye unicamente el flujo y artefactos de [job](job).
-- No documenta la carpeta homicidios.
+- Solo incluye artefactos de [job](job).
+- No incluye otras carpetas del repositorio.
 
-## Estructura principal
+## Estructura principal de job
 
-- [job/guia.txt](job/guia.txt): guia de trabajo y preguntas orientadoras.
-- [job/job_search_platform_efficacy_100k.csv](job/job_search_platform_efficacy_100k.csv): dataset base (100,000 filas).
+- [job/job_search_platform_efficacy_100k.csv](job/job_search_platform_efficacy_100k.csv): dataset base.
 - [job/primerCorte.ipynb](job/primerCorte.ipynb): notebook principal del primer corte.
+- [job/logistic_regression_offer_received.ipynb](job/logistic_regression_offer_received.ipynb): notebook de modelado de clasificacion.
+- [job/CONTEXTO.md](job/CONTEXTO.md): contexto operativo integral del proyecto.
+- [job/resumen.md](job/resumen.md): resumen narrativo de hallazgos.
+- [job/PLAN_MODELADO_SECOND_ITERATION.md](job/PLAN_MODELADO_SECOND_ITERATION.md): plan de segundo corte.
+- [job/Trabajo_Primer_Corte-GRUPO4.pdf](job/Trabajo_Primer_Corte-GRUPO4.pdf): documento del primer corte.
 - [job/requirements.txt](job/requirements.txt): dependencias Python.
-- [job/outputs_primer_corte](job/outputs_primer_corte): salidas tabulares, bitacoras y graficos.
+- [job/outputs_primer_corte](job/outputs_primer_corte): carpeta de salidas.
 
-## Tecnologias
+## Requisitos
 
-Dependencias declaradas en [job/requirements.txt](job/requirements.txt):
+Dependencias en [job/requirements.txt](job/requirements.txt).
 
-- ipykernel 7.2.0
-- numpy 2.4.4
-- pandas 3.0.2
-- matplotlib 3.10.8
-- seaborn 0.13.2
-- scikit-learn 1.8.0
-- scipy 1.17.1
+## Ejecucion rapida
 
-## Como ejecutar el analisis
+Desde la raiz del repositorio:
 
-1. Crear y activar un entorno virtual en la raiz del repositorio.
-2. Instalar dependencias desde [job/requirements.txt](job/requirements.txt).
-3. Abrir [job/primerCorte.ipynb](job/primerCorte.ipynb).
-4. Ejecutar todas las celdas en orden para regenerar resultados en [job/outputs_primer_corte](job/outputs_primer_corte).
-
-Comandos de referencia:
-
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r job/requirements.txt
 jupyter notebook job/primerCorte.ipynb
-
-## Resumen del primer corte
-
-De acuerdo con [job/outputs_primer_corte/reporte_limpieza_detallado.txt](job/outputs_primer_corte/reporte_limpieza_detallado.txt):
-
-- Filas originales: 100,000
-- Filas finales: 100,000 (retencion 100%)
-- Columnas originales: 20
-- Columnas finales: 40 (20 features nuevas)
-
-Hallazgos ejecutivos destacados (fuente: [job/outputs_primer_corte/conclusiones_ejecutivas_primer_corte.csv](job/outputs_primer_corte/conclusiones_ejecutivas_primer_corte.csv)):
-
-- Tasa global de oferta: 34.23%
-- Handshake e LinkedIn muestran mayor tasa de oferta que Indeed
-- El avance a segunda ronda se asocia fuertemente con recibir oferta
-
-## Artefactos generados en outputs_primer_corte
-
-### Tablas y trazabilidad
-
-- [job/outputs_primer_corte/metadata_limpieza.csv](job/outputs_primer_corte/metadata_limpieza.csv)
-- [job/outputs_primer_corte/decisiones_limpieza.csv](job/outputs_primer_corte/decisiones_limpieza.csv)
-- [job/outputs_primer_corte/bitacora_calidad.csv](job/outputs_primer_corte/bitacora_calidad.csv)
-- [job/outputs_primer_corte/resumen_faltantes.csv](job/outputs_primer_corte/resumen_faltantes.csv)
-- [job/outputs_primer_corte/outliers_iqr_resumen.csv](job/outputs_primer_corte/outliers_iqr_resumen.csv)
-- [job/outputs_primer_corte/reporte_limpieza_detallado.txt](job/outputs_primer_corte/reporte_limpieza_detallado.txt)
-
-### Datasets procesados
-
-- [job/outputs_primer_corte/dataset_limpio_primer_corte.csv](job/outputs_primer_corte/dataset_limpio_primer_corte.csv)
-- [job/outputs_primer_corte/dataset_limpio_completo.csv](job/outputs_primer_corte/dataset_limpio_completo.csv)
-
-### Analisis e interpretacion
-
-- [job/outputs_primer_corte/tasa_oferta_por_plataforma.csv](job/outputs_primer_corte/tasa_oferta_por_plataforma.csv)
-- [job/outputs_primer_corte/top_correlaciones_offer_received.csv](job/outputs_primer_corte/top_correlaciones_offer_received.csv)
-- [job/outputs_primer_corte/conclusiones_ejecutivas_primer_corte.csv](job/outputs_primer_corte/conclusiones_ejecutivas_primer_corte.csv)
-- [job/outputs_primer_corte/interpretaciones_graficos_detalladas.csv](job/outputs_primer_corte/interpretaciones_graficos_detalladas.csv)
-- [job/outputs_primer_corte/plan_modelado_dos_objetivos.csv](job/outputs_primer_corte/plan_modelado_dos_objetivos.csv)
-- [job/outputs_primer_corte/riesgos_modelado_y_mitigaciones.csv](job/outputs_primer_corte/riesgos_modelado_y_mitigaciones.csv)
-
-### Visualizaciones
-
-En [job/outputs_primer_corte](job/outputs_primer_corte) se incluyen visualizaciones de:
-
-- Distribuciones (histogramas)
-- Outliers (boxplots, violin, strip)
-- Relaciones bivariadas (scatter, pairplot, lineas/areas/barras)
-- Correlaciones (heatmap)
-- Calidad y estructura del dataset
-
-## Siguiente iteracion: Segundo Corte - Modelado Predictivo
-
-### Plan Detallado del Segundo Corte
-
-El segundo corte está completamente especificado en [job/PLAN_MODELADO_SECOND_ITERATION.md](job/PLAN_MODELADO_SECOND_ITERATION.md).
-
-Este documento contiene:
-
-- **7 Fases secuenciales** de modelado (Gobernanza → Implementación)
-- **2 Objetivos paralelos**: 
-  - Modelo A: Clasificación para predecir `Offer_Received` (ROC-AUC ≥ 0.70)
-  - Modelo B: Regresión para estimar `Offer_Salary` (RMSE ≤ $18k)
-- **Criterios de éxito** técnicos, de equidad y reproducibilidad
-- **10 riesgos identificados** con matrices de mitigación
-- **4 hipótesis** para validar en próximas iteraciones
-- **Timeline**: 21-30 días con equipo multidisciplinaria
-
-### Librerías Adicionales Requeridas
-
-Para ejecutar el segundo corte, asegurate de que tu entorno incluya:
-
-```bash
-pip install -r job/requirements.txt
 ```
 
-Nuevos paquetes agregados para modelado:
-- `xgboost>=1.7.6` - Gradient Boosting
-- `lightgbm>=4.1.0` - Gradient Boosting alternativo
-- `optuna>=3.1.2` - Hyperparameter tuning
-- `shap>=0.43.0` - Model interpretability
+## Resultados del primer corte
 
-### Pasos Inmediatos
+Fuente principal: [job/outputs_primer_corte/csv/reporte_limpieza_detallado.txt](job/outputs_primer_corte/csv/reporte_limpieza_detallado.txt)
 
-1. Revisar y aprobar [job/PLAN_MODELADO_SECOND_ITERATION.md](job/PLAN_MODELADO_SECOND_ITERATION.md)
-2. Actualizar el entorno: `pip install -r job/requirements.txt`
-3. Crear notebook `segundoCorte.ipynb` o extender `primerCorte.ipynb` células 44-91
-4. Seguir las 7 fases en orden estricto (dependencies secuenciales)
+- filas originales: 100,000
+- filas finales: 100,000 (retencion 100%)
+- columnas originales: 20
+- columnas finales: 40 (20 features derivadas)
+
+Hallazgos ejecutivos (fuente: [job/outputs_primer_corte/csv/conclusiones_ejecutivas_primer_corte.csv](job/outputs_primer_corte/csv/conclusiones_ejecutivas_primer_corte.csv)):
+
+- tasa global de oferta: 34.23%
+- Handshake y LinkedIn superan a Indeed en tasa de oferta
+- avanzar a segunda ronda tiene asociacion fuerte con recibir oferta
+
+## Outputs disponibles
+
+### CSV (trazabilidad, datasets y analisis)
+
+Todos en [job/outputs_primer_corte/csv](job/outputs_primer_corte/csv):
+
+- `metadata_limpieza.csv`
+- `decisiones_limpieza.csv`
+- `bitacora_calidad.csv`
+- `resumen_faltantes.csv`
+- `outliers_iqr_resumen.csv`
+- `reporte_limpieza_detallado.txt`
+- `dataset_limpio_primer_corte.csv`
+- `dataset_limpio_completo.csv`
+- `dataset_offer_Received.csv`
+- `dataset_offer_Salary.csv`
+- `tasa_oferta_por_plataforma.csv`
+- `top_correlaciones_offer_received.csv`
+- `conclusiones_ejecutivas_primer_corte.csv`
+- `interpretaciones_graficos_detalladas.csv`
+- `plan_modelado_dos_objetivos.csv`
+- `riesgos_modelado_y_mitigaciones.csv`
+- `hipotesis_siguiente_iteracion.csv`
+- `respuestas_guia_26_preguntas.csv`
+- `respuestas_guia_iniciales.csv`
+- `01_factores_comparativa.csv`
+- `02_recomendaciones_operativas.csv`
+
+### Imagenes del EDA
+
+Todas en [job/outputs_primer_corte/imagenes_png](job/outputs_primer_corte/imagenes_png):
+
+- `04_exploracion_dataset_dimensions.png`
+- `04_tipos_variables.png`
+- `04_valores_faltantes.png`
+- `04_tamaño_escala_dataset.png`
+- `04_relevancia_calidad_4preguntas.png`
+- `histogramas_base.png`
+- `boxplots_base.png`
+- `scatterplots_base.png`
+- `correlation_matrix.png`
+- `visualizacion_limpieza_resumen.png`
+- `05_bivariado_scatter_plots.png`
+- `06_bivariado_heatmap_correlacion.png`
+- `07_bivariado_pairplot.png`
+- `08_bivariado_boxplot_violin_strip.png`
+- `09_bivariado_lineas_areas_barras.png`
+
+## Segundo corte: modelado predictivo
+
+El plan detallado se encuentra en [job/PLAN_MODELADO_SECOND_ITERATION.md](job/PLAN_MODELADO_SECOND_ITERATION.md).
+
+Define:
+
+- 7 fases secuenciales de modelado,
+- 2 objetivos (clasificacion de `Offer_Received` y regresion de `Offer_Salary`),
+- criterios de exito tecnico, equidad y reproducibilidad,
+- riesgos y mitigaciones,
+- timeline estimado.
+
+## Nota de mantenimiento
+
+Si se agregan nuevos artefactos en [job/outputs_primer_corte/csv](job/outputs_primer_corte/csv) o [job/outputs_primer_corte/imagenes_png](job/outputs_primer_corte/imagenes_png), actualizar este README para mantener trazabilidad completa.
