@@ -180,7 +180,7 @@ Es cuando miramos UNA variable a la vez, sin relacionarla con otras. Preguntas c
 
 ### Imagen 1: Estructura General del Dataset
 
-![04_exploracion_dataset_dimensions.png](outputs_primer_corte/imagenes_png/04_exploracion_dataset_dimensions.png)
+![04_exploracion_dataset_dimensions.png](../outputs_primer_corte/imagenes_png/04_exploracion_dataset_dimensions.png)
 
 **Interpretación:** Esta visualización muestra que nuestro dataset tiene 100,000 filas (estudiantes) y 20 columnas (variables). Es un dataset "plano" y bien formado.
 
@@ -188,7 +188,7 @@ Es cuando miramos UNA variable a la vez, sin relacionarla con otras. Preguntas c
 
 ### Imagen 2: Tipos de Variables
 
-![04_tipos_variables.png](outputs_primer_corte/imagenes_png/04_tipos_variables.png)
+![04_tipos_variables.png](../outputs_primer_corte/imagenes_png/04_tipos_variables.png)
 
 **¿Qué muestra?**
 - **Azul:** Variables numéricas (13 variables) - como GPA, salarios, conteos
@@ -200,7 +200,7 @@ Es cuando miramos UNA variable a la vez, sin relacionarla con otras. Preguntas c
 
 ### Imagen 3: Valores Faltantes (Nulos)
 
-![04_valores_faltantes.png](outputs_primer_corte/imagenes_png/04_valores_faltantes.png)
+![04_valores_faltantes.png](../outputs_primer_corte/imagenes_png/04_valores_faltantes.png)
 
 **¿Qué muestra?**
 - **Rojo:** Casos con valores faltantes
@@ -217,7 +217,7 @@ Es cuando miramos UNA variable a la vez, sin relacionarla con otras. Preguntas c
 
 ### Imagen 4: Tamaño y Escala del Dataset
 
-![04_tamaño_escala_dataset.png](outputs_primer_corte/imagenes_png/04_tamaño_escala_dataset.png)
+![04_tamaño_escala_dataset.png](../outputs_primer_corte/imagenes_png/04_tamaño_escala_dataset.png)
 
 **¿Qué muestra?** Información sobre memoria y tamaño de los datos. No es crítica para interpretación.
 
@@ -225,7 +225,7 @@ Es cuando miramos UNA variable a la vez, sin relacionarla con otras. Preguntas c
 
 ### Imagen 5: Distribuciones Básicas (Histogramas)
 
-![histogramas_base.png](outputs_primer_corte/imagenes_png/histogramas_base.png)
+![histogramas_base.png](../outputs_primer_corte/imagenes_png/histogramas_base.png)
 
 **¿Qué muestra?**
 
@@ -247,7 +247,7 @@ Para cada variable numérica, un histograma que cuenta "¿cuántos estudiantes e
 
 ### Imagen 6: Outliers (Boxplots)
 
-![boxplots_base.png](outputs_primer_corte/imagenes_png/boxplots_base.png)
+![boxplots_base.png](../outputs_primer_corte/imagenes_png/boxplots_base.png)
 
 **¿Qué muestra?** Para cada variable:
 - **Caja:** Rango donde está el 50% de los datos (típico)
@@ -264,7 +264,7 @@ Para cada variable numérica, un histograma que cuenta "¿cuántos estudiantes e
 
 ### Imagen 7: Scatter Plots (Relaciones Bivariadas)
 
-![scatterplots_base.png](outputs_primer_corte/imagenes_png/scatterplots_base.png)
+![scatterplots_base.png](../outputs_primer_corte/imagenes_png/scatterplots_base.png)
 
 **¿Qué muestra?** Gráficos de puntos donde cada punto es un estudiante. Dos dimensiones: X e Y.
 
@@ -286,7 +286,7 @@ Para cada variable numérica, un histograma que cuenta "¿cuántos estudiantes e
 
 ### Imagen 8: Matriz de Correlación General
 
-![correlation_matrix.png](outputs_primer_corte/imagenes_png/correlation_matrix.png)
+![correlation_matrix.png](../outputs_primer_corte/imagenes_png/correlation_matrix.png)
 
 **¿Qué muestra?** Una "tabla de colores" donde cada cuadro es la correlación entre dos variables.
 
@@ -319,7 +319,7 @@ Miramos **DOS variables simultáneamente** para entender cómo interactúan.
 
 ### Imagen 9: Scatter Plots Detallados con Colores
 
-![05_bivariado_scatter_plots.png](outputs_primer_corte/imagenes_png/05_bivariado_scatter_plots.png)
+![05_bivariado_scatter_plots.png](../outputs_primer_corte/imagenes_png/05_bivariado_scatter_plots.png)
 
 **Cada gráfico está coloreado por una variable tercera, dando más dimensiones.**
 
@@ -342,7 +342,7 @@ Miramos **DOS variables simultáneamente** para entender cómo interactúan.
 
 ### Imagen 10: Heatmap de Correlación Completa
 
-![06_bivariado_heatmap_correlacion.png](outputs_primer_corte/imagenes_png/06_bivariado_heatmap_correlacion.png)
+![06_bivariado_heatmap_correlacion.png](../outputs_primer_corte/imagenes_png/06_bivariado_heatmap_correlacion.png)
 
 **Misma que antes, pero aquí más detallada. Útil para:**
 - Identificar variable pares que correlacionan fuerte (potencial multicolinealidad)
@@ -354,7 +354,7 @@ Miramos **DOS variables simultáneamente** para entender cómo interactúan.
 
 ### Imagen 11: Matriz de Dispersión (PairPlot)
 
-![07_bivariado_pairplot.png](outputs_primer_corte/imagenes_png/07_bivariado_pairplot.png)
+![07_bivariado_pairplot.png](../outputs_primer_corte/imagenes_png/07_bivariado_pairplot.png)
 
 **¿Qué muestra?** Una "tabla" de gráficos de dispersión. Cada fila y columna es una variable.
 
@@ -372,7 +372,7 @@ Miramos **DOS variables simultáneamente** para entender cómo interactúan.
 
 ### Imagen 12: Boxplots, Violin Plots y Strip Plots
 
-![08_bivariado_boxplot_violin_strip.png](outputs_primer_corte/imagenes_png/08_bivariado_boxplot_violin_strip.png)
+![08_bivariado_boxplot_violin_strip.png](../outputs_primer_corte/imagenes_png/08_bivariado_boxplot_violin_strip.png)
 
 **¿Qué muestra?** Para cada CATEGORÍA (ej: Major, Resultado), la distribución de una variable NUMÉRICA.
 
@@ -404,7 +404,7 @@ Miramos **DOS variables simultáneamente** para entender cómo interactúan.
 
 ### Imagen 13: Líneas, Áreas y Barras
 
-![09_bivariado_lineas_areas_barras.png](outputs_primer_corte/imagenes_png/09_bivariado_lineas_areas_barras.png)
+![09_bivariado_lineas_areas_barras.png](../outputs_primer_corte/imagenes_png/09_bivariado_lineas_areas_barras.png)
 
 **¿Qué muestra?** Diferentes formas de visualizar relaciones categóricas.
 
@@ -471,7 +471,7 @@ Indeed:     Apps → 10% 1ª Ronda → 5%  2ª Ronda → 22% Oferta (PEOR)
 
 ## Imagen 14: Resumen Visual de Limpieza
 
-![visualizacion_limpieza_resumen.png](outputs_primer_corte/imagenes_png/visualizacion_limpieza_resumen.png)
+![visualizacion_limpieza_resumen.png](../outputs_primer_corte/imagenes_png/visualizacion_limpieza_resumen.png)
 
 **¿Qué muestra?** Un resumen de cómo cambió el dataset durante limpieza:
 
@@ -662,5 +662,5 @@ Antes de tu examen, asegúrate de entender:
 
 **Fin del Resumen**
 
-*Documento preparado como guía de estudio completa. Todas las imágenes referenciadas están en `job/outputs_primer_corte/imagenes_png/`*
+*Documento preparado como guía de estudio completa. Todas las imágenes referenciadas están en `../outputs_primer_corte/imagenes_png/`*
 
