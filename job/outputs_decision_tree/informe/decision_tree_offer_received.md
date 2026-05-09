@@ -1,10 +1,10 @@
-# Informe de entrenamiento y despliegue - Decision Tree para Offer_Received
+# Informe ejecutivo - Decision Tree para Offer_Received
 
-## 1. Resumen ejecutivo
+## 1. Mensaje clave
 
-Este notebook construye un clasificador binario para predecir `Offer_Received` priorizando la detección de la clase positiva `SI OFERTA (1)`. El flujo usa un `Pipeline` con preprocesamiento diferenciado, búsqueda de hiperparámetros, ajuste de umbral y evaluación final sobre un conjunto de prueba separado.
+Este proyecto construye un árbol de decisión para predecir `Offer_Received` con foco explícito en `SI OFERTA (1)`. El entregable final está preparado para presentación y para reutilización operativa: deja un artefacto base, uno mejorado y un conjunto de gráficas que explican el comportamiento del modelo sin necesidad de abrir el notebook.
 
-La configuración final encontrada fue:
+### Configuración final del modelo mejorado
 
 - `criterion = gini`
 - `max_depth = None`
@@ -13,84 +13,96 @@ La configuración final encontrada fue:
 - `ccp_alpha = 0.0001`
 - `threshold óptimo = 0.32`
 
-Con ese ajuste, el modelo prioriza recall de la clase positiva, que era el objetivo principal del proyecto.
+## 2. Archivos entregables
 
-## 2. Qué se hizo en el notebook
+### Modelos serializados
 
-- Se cargó el dataset limpio `dataset_offer_Received.csv`.
-- Se separaron variables numéricas y categóricas.
-- Se entrenó `DecisionTreeClassifier` dentro de un `Pipeline` con `OneHotEncoder`.
-- Se optimizaron hiperparámetros con `GridSearchCV` y validación cruzada estratificada.
-- Se ajustó el umbral de decisión para priorizar `SI OFERTA`.
-- Se generaron gráficas del entrenamiento y la evaluación.
-- Se serializó el modelo final con metadata en formato `.pkl`.
+- [Baseline](decision_tree_offer_received_base.pkl)
+- [Mejorado](decision_tree_offer_received_improved.pkl)
 
-## 3. Artefactos generados
+### Gráficas del baseline
 
-### Modelo serializado
-- `decision_tree_offer_received.pkl`
+![Matriz de confusión baseline](../imagenes/decision_tree_confusion_base.png)
 
-### Imágenes PNG
-- `decision_tree_confusion_matrix.png`
-- `decision_tree_roc_curve.png`
-- `decision_tree_precision_recall_curve.png`
-- `decision_tree_threshold_tradeoff.png`
-- `decision_tree_feature_importance.png`
-- `decision_tree_tree_preview.png`
-- `decision_tree_rule_comparison.png`
+![Curva ROC baseline](../imagenes/decision_tree_roc_base.png)
 
-## 4. Qué contiene el archivo `.pkl`
+![Curva Precision-Recall baseline](../imagenes/decision_tree_pr_base.png)
 
-El archivo `.pkl` guarda un diccionario con esta estructura:
+![Barrido de umbral baseline](../imagenes/decision_tree_threshold_base.png)
 
-- `pipeline`: el pipeline entrenado con preprocesamiento y árbol de decisión.
-- `best_threshold`: el umbral óptimo para convertir probabilidades en clase final.
-- `best_params`: los mejores hiperparámetros encontrados.
-- `target_name`: nombre de la variable objetivo.
-- `feature_columns`: columnas esperadas de entrada.
-- `numeric_columns`: columnas numéricas.
-- `categorical_columns`: columnas categóricas.
-- `metrics_default_threshold`: métricas con umbral 0.50.
-- `metrics_optimized_threshold`: métricas con el umbral óptimo.
-- `threshold_preview`: tabla resumida del barrido de umbrales sobre validation.
+### Gráficas del modelo mejorado
 
-## 5. Entradas del modelo
+![Importancia de variables mejorado](../imagenes/decision_tree_feature_importance.png)
 
-Las entradas deben tener exactamente la misma estructura del dataset limpio usado en entrenamiento, pero sin la columna objetivo `Offer_Received`.
+![Vista parcial del árbol mejorado](../imagenes/decision_tree_tree_preview.png)
 
-Columnas esperadas:
+![Matriz de confusión mejorado](../imagenes/decision_tree_confusion_matrix.png)
 
-```python
-['GPA', 'University_Rating', 'Major_Category', 'Region', 'Prior_Internships', 'Extra_Curricular_Activities', 'Networking_Events_Attended', 'School_Size', 'Primary_Search_Platform', 'Months_Searching', 'Applications_Submitted', 'First_Round_Interviews', 'Second_Round_Interviews']
-```
+![Curva ROC mejorado](../imagenes/decision_tree_roc_curve.png)
 
-## 6. Salidas del modelo
+![Curva Precision-Recall mejorado](../imagenes/decision_tree_precision_recall_curve.png)
 
-El artefacto permite obtener tres cosas principales:
+![Barrido de umbral mejorado](../imagenes/decision_tree_threshold_tradeoff.png)
 
-- `pipeline.predict_proba(X)[:, 1]`: probabilidad de la clase `SI OFERTA (1)`.
-- `pipeline.predict(X)`: clase predicha con la configuración interna del modelo.
-- Predicción ajustada por umbral usando `best_threshold`.
+![Comparación con reglas manuales](../imagenes/decision_tree_rule_comparison.png)
 
-La salida principal para negocio es la probabilidad de pertenecer a `SI OFERTA (1)` y la clase resultante al aplicar el umbral óptimo.
+## 3. Lectura ejecutiva de las gráficas
 
-## 7. Cómo obtener el porcentaje de seguridad
+Las gráficas están diseñadas para responder preguntas de negocio, no para mostrar sintaxis:
 
-La seguridad de la predicción se interpreta como la probabilidad estimada para la clase positiva.
+- ¿El modelo separa bien a quienes sí reciben oferta? Eso se ve en la curva ROC.
+- ¿Sirve realmente cuando la clase importante es `SI OFERTA (1)`? Eso se ve mejor en la curva Precision-Recall.
+- ¿Qué sucede si cambiamos la regla de decisión? Eso se ve en el barrido de umbral.
+- ¿Qué variable domina la decisión? Eso se ve en la importancia de variables y en la vista parcial del árbol.
 
-Fórmula:
+### Lo que dicen los números
 
-```python
-porcentaje_seguridad = probabilidad_clase_1 * 100
-```
+- En el baseline, el árbol detectaba `96.44%` de los casos positivos reales (`Recall = 0.9644`).
+- En el modelo mejorado, esa cobertura subió a `99.11%` (`Recall = 0.9911`).
+- La `ROC-AUC` se mantuvo en `0.9672`, así que el árbol ya separaba muy bien desde el inicio.
+- El `F-beta (1.5)` subió de `0.9042` a `0.9060`, una mejora pequeña pero real en favor del objetivo del proyecto.
 
-Ejemplo:
+En términos ejecutivos: el modelo mejorado dejó pasar menos ofertas reales. A cambio, marcó algunos casos extra como positivos, por eso bajaron ligeramente la precisión y la exactitud global.
 
-- Si `probabilidad_clase_1 = 0.93`, entonces `porcentaje_seguridad = 93%`.
+## 4. Qué aporta el baseline
 
-## 8. Métricas principales
+El baseline responde a la pregunta de control: ¿qué tan bien funciona el árbol antes de la optimización fina? Esa referencia sirve para comparar de manera objetiva y mostrar si el ajuste posterior aporta valor.
 
-Con el umbral base de 0.50 se obtuvo:
+### Baseline en una frase
+
+La versión base ya separa bien las clases y deja una señal fuerte sobre la clase positiva, pero todavía había margen para mejorar la captura de casos reales de oferta.
+
+### Lectura visual del baseline
+
+La matriz de confusión muestra el comportamiento original del árbol. La curva ROC resume su capacidad de separación con un valor muy alto de `0.9672`, lo que significa que el árbol ya distinguía muy bien entre clases. La curva Precision-Recall es especialmente útil porque la clase positiva es la relevante, y el barrido de umbral muestra el efecto operativo de mover la frontera de decisión.
+
+En términos sencillos, el baseline ya funcionaba bien, pero todavía dejaba pasar algunos casos positivos que interesaba capturar.
+
+## 5. Qué cambia en el modelo mejorado
+
+La versión mejorada conserva la estructura del árbol, pero incorpora dos ajustes que cambian la salida final:
+
+1. Búsqueda de hiperparámetros con validación cruzada.
+2. Ajuste del umbral para priorizar `SI OFERTA (1)`.
+
+### Qué hace cada mejora
+
+- La búsqueda de hiperparámetros prueba varias configuraciones del árbol para quedarse con la que mejor generaliza.
+- El ajuste del umbral vuelve más sensible la decisión final para no perder ofertas reales.
+
+Además, incorpora piezas de interpretación que ayudan a la presentación:
+
+- importancia agregada de variables,
+- vista parcial del árbol,
+- comparación con reglas manuales inspiradas en los splits.
+
+### ¿Sirvió la mejora?
+
+Sí, para el objetivo principal sí sirvió. La mejora no subió mucho la precisión global, pero sí aumentó el recall de `96.44%` a `99.11%`, que es justamente lo que importa si el costo de perder un caso positivo es alto. En otras palabras: el árbol mejorado marcó algunos positivos adicionales, pero dejó pasar muchos menos casos reales de oferta.
+
+## 6. Resultados cuantitativos
+
+### Baseline con umbral 0.50
 
 - `Accuracy = 0.9015`
 - `Precision = 0.7928`
@@ -100,7 +112,7 @@ Con el umbral base de 0.50 se obtuvo:
 - `ROC-AUC = 0.9672`
 - `Average Precision = 0.9140`
 
-Con el umbral optimizado se obtuvo:
+### Modelo mejorado con umbral óptimo
 
 - `Accuracy = 0.8894`
 - `Precision = 0.7593`
@@ -110,102 +122,107 @@ Con el umbral optimizado se obtuvo:
 - `ROC-AUC = 0.9672`
 - `Average Precision = 0.9140`
 
-La matriz de confusión orientada a `SI OFERTA` quedó con:
+### Lectura ejecutiva
 
-- `TP = 6785`
-- `FN = 61`
-- `FP = 2151`
-- `TN = 11003`
+La mejora sube el recall y mantiene un nivel alto de precisión. Si el objetivo del negocio es no perder ofertas reales, esta es la dirección correcta: sacrificar una parte pequeña de la precisión para capturar más positivos.
 
-## 9. Variables con mayor peso en la decisión
+En términos prácticos: el modelo mejorado es más adecuado para detectar oportunidades, aunque exige revisar un poco más de falsos positivos. Para este proyecto eso es aceptable, porque la prioridad era no dejar pasar casos que sí recibían oferta.
 
-El árbol no usa coeficientes positivos o negativos como una regresión logística. Su interpretación se basa en la frecuencia y profundidad de las divisiones. Las variables con mayor importancia agregada fueron:
+## 7. Qué explica el árbol
 
-- Second_Round_Interviews: 0.6310
-- First_Round_Interviews: 0.2006
-- Applications_Submitted: 0.1256
-- Primary_Search_Platform_Indeed: 0.0207
-- Prior_Internships: 0.0132
-- GPA: 0.0033
-- Primary_Search_Platform_LinkedIn: 0.0030
-- Primary_Search_Platform_Handshake: 0.0026
-- Major_Category_Arts: 0.0000
-- Extra_Curricular_Activities: 0.0000
+El árbol no se interpreta con coeficientes, sino con divisiones e importancia de variables.
 
-Las variables que más empujan hacia `SI OFERTA` son las que aparecen cerca de la raíz y reducen más la impureza: sobre todo `Second_Round_Interviews`, `First_Round_Interviews`, `Applications_Submitted` y `GPA`.
+### Variables más importantes
 
-## 10. Decisiones técnicas que cambiaron el resultado
+- `Second_Round_Interviews`
+- `First_Round_Interviews`
+- `Applications_Submitted`
+- `Primary_Search_Platform_Indeed`
+- `Prior_Internships`
+- `GPA`
 
-1. Se mantuvo `class_weight='balanced'` para no ignorar la clase positiva.
-2. Se hizo `train_test_split` estratificado para conservar la proporción de clases.
-3. Se entrenó con `GridSearchCV` sobre `criterion`, `max_depth`, `min_samples_split`, `min_samples_leaf` y `ccp_alpha`.
-4. La mejor configuración se eligió con `F-beta (1.5)` para priorizar el recall de `SI OFERTA`.
-5. El umbral se optimizó sobre validation para reforzar la captura de la clase positiva.
+### Lectura operativa
 
-El impacto frente al umbral base de `0.50` fue:
+Las primeras divisiones del árbol están dominadas por el avance en entrevistas. Eso sugiere una lectura muy alineada con el negocio: cuando el proceso avanza a segundas rondas, la probabilidad de oferta sube con fuerza; cuando no avanza, el árbol empuja hacia la clase negativa.
 
-- `Accuracy`: `0.9015 -> 0.8894`
-- `Precision`: `0.7928 -> 0.7593`
-- `Recall`: `0.9644 -> 0.9911`
-- `F1-Score`: `0.8702 -> 0.8598`
-- `F-beta (1.5)`: `0.9042 -> 0.9060`
-- `ROC-AUC`: `0.9672 -> 0.9672`
+La gráfica del árbol es útil porque muestra una ruta simple para explicar el modelo a personas no técnicas: si un candidato no llega a segunda ronda, el árbol ya lo empuja con fuerza hacia `NO OFERTA`; si sí llega, la probabilidad cambia de forma importante.
 
-## 11. Lectura operativa de la matriz de confusión
+## 8. Interpretación de las gráficas
 
-Con el orden `[1, 0]`, la lectura prioriza `SI OFERTA`:
+### Baseline
 
-- `TP = 6785`: ofertas reales detectadas.
-- `FN = 61`: ofertas reales perdidas.
-- `FP = 2151`: no ofertas marcadas como oferta.
-- `TN = 11003`: no ofertas correctamente descartadas.
+Las gráficas del baseline dejan ver el comportamiento original del árbol sin intervención adicional. Son útiles para explicar de dónde partió el análisis y por qué se necesitó calibrar el modelo.
 
-En proporción por clase real, el modelo captura aproximadamente `99.11%` de los casos positivos reales y clasifica correctamente cerca de `83.65%` de los casos negativos.
+- la matriz de confusión muestra que ya había una base sólida,
+- la ROC confirma que el árbol separa muy bien las clases,
+- la Precision-Recall ayuda a verificar si la clase positiva estaba bien capturada,
+- el barrido de umbral explica por qué mover la regla final era una mejora útil.
 
-## 12. Script mínimo de inferencia
+### Mejorado
+
+Las gráficas del modelo mejorado muestran la solución final:
+
+- la importancia agregada revela las variables dominantes,
+- la vista parcial del árbol ayuda a explicar decisiones,
+- la comparación con reglas manuales muestra si una regla simple compite con el árbol,
+- las curvas ROC y Precision-Recall respaldan el comportamiento global,
+- el barrido de umbral justifica la elección de 0.32.
+
+En una frase: el árbol mejorado no cambió radicalmente la forma de separar las clases, pero sí tomó una decisión más útil para negocio al priorizar mejor la clase positiva.
+
+## 9. Artefacto `.pkl`
+
+Cada `.pkl` guarda el pipeline y la metadata necesaria para ejecutar inferencia sin reentrenar.
+
+### Contenido principal
+
+- `pipeline`
+- `best_threshold`
+- `best_params`
+- `feature_columns`
+- `numeric_columns`
+- `categorical_columns`
+- `metrics_default_threshold`
+- `metrics_optimized_threshold`
+- `threshold_preview`
+- `model_stage`
+
+## 10. Ejemplo de uso con `entradas`
 
 ```python
 import pickle
 from pathlib import Path
 import pandas as pd
 
-MODEL_PATH = Path("job/outputs_decision_tree/informe/decision_tree_offer_received.pkl")
+MODEL_PATH = Path("decision_tree_offer_received_improved.pkl")
 
 with open(MODEL_PATH, "rb") as f:
-    artifact = pickle.load(f)
+	artifact = pickle.load(f)
 
 modelo = artifact["pipeline"]
 umbral = artifact["best_threshold"]
 feature_columns = artifact["feature_columns"]
 
-# Define manualmente una fila de entrada usando las mismas columnas del entrenamiento.
-# Cambia estos valores por el caso real que quieras evaluar.
-entrada = pd.DataFrame([{
-    "GPA": 2.0,
-    "University_Rating": "Top-tier",
-    "Major_Category": "STEM",
-    "Region": "West",
-    "Prior_Internships": 1,
-    "Extra_Curricular_Activities": 1,
-    "Networking_Events_Attended": 3,
-    "School_Size": "Medium",
-    "Primary_Search_Platform": "LinkedIn",
-    "Months_Searching": 6,
-    "Applications_Submitted": 25,
-    "First_Round_Interviews": 4,
-    "Second_Round_Interviews": 2,
+entradas = pd.DataFrame([{
+	"GPA": 3.1,
+	"University_Rating": "Top-tier",
+	"Major_Category": "STEM",
+	"Region": "West",
+	"Prior_Internships": 2,
+	"Extra_Curricular_Activities": 1,
+	"Networking_Events_Attended": 3,
+	"School_Size": "Medium",
+	"Primary_Search_Platform": "LinkedIn",
+	"Months_Searching": 5,
+	"Applications_Submitted": 20,
+	"First_Round_Interviews": 4,
+	"Second_Round_Interviews": 2,
 }])
 
-# Asegura el mismo orden de columnas que se usó al entrenar.
-entrada = entrada[feature_columns]
+entradas = entradas[feature_columns]
 
-# 1. Probabilidad estimada de recibir oferta.
-probabilidad = modelo.predict_proba(entrada)[:, 1][0]
-
-# 2. Clase final usando el umbral óptimo del notebook.
+probabilidad = modelo.predict_proba(entradas)[:, 1][0]
 prediccion = int(probabilidad >= umbral)
-
-# 3. Porcentaje de seguridad para SI OFERTA.
 porcentaje_seguridad = probabilidad * 100
 
 print("prediccion:", prediccion)
@@ -213,23 +230,14 @@ print("probabilidad_clase_1:", round(probabilidad, 4))
 print("porcentaje_seguridad:", round(porcentaje_seguridad, 2), "%")
 ```
 
-## 13. Lectura operativa
+## 11. Comparación con reglas manuales
 
-El modelo está orientado a minimizar falsos negativos sobre `SI OFERTA`. Por eso el umbral óptimo puede quedar por debajo de 0.50 si eso mejora la captura de positivos reales.
+El notebook no solo evalúa el árbol, también contrasta su comportamiento contra reglas simples construidas a partir de las variables más influyentes. Eso sirve para responder una pregunta práctica: ¿se puede explicar una parte del comportamiento con reglas de negocio simples?
 
-En términos prácticos:
+La respuesta es que algunas reglas capturan patrones útiles, pero el árbol sigue siendo la opción más completa para combinar señales en distintos niveles.
 
-- Si necesitas cobertura sobre posibles ofertas, usa el umbral óptimo del archivo `.pkl`.
-- Si necesitas una decisión más estricta, puedes subir el umbral, pero perderás recall.
+## 12. Cierre ejecutivo
 
-## 14. Uso recomendado
+La conclusión principal es que el árbol ofrece una solución muy sólida para este problema y, además, deja una narrativa clara para presentar: baseline, mejora, visualizaciones y salida serializada.
 
-1. Cargar el `.pkl` con `pickle.load`.
-2. Preparar un `DataFrame` con las columnas esperadas.
-3. Calcular `predict_proba`.
-4. Aplicar el umbral óptimo `best_threshold`.
-5. Interpretar `probabilidad_clase_1 * 100` como porcentaje de seguridad.
-
-## 15. Observación final
-
-Este notebook se diseñó para explicar y priorizar la clase `SI OFERTA (1)`. Las gráficas exportadas en PNG respaldan la interpretación del modelo y el archivo `.pkl` permite reutilizar el entrenamiento sin repetir todo el proceso.
+La versión mejorada es la recomendada para uso operativo porque sí cumplió el objetivo principal: capturar mejor la clase `SI OFERTA (1)`. La baseline queda como referencia metodológica y como respaldo para comparar futuras iteraciones.

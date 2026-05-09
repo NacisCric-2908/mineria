@@ -1,92 +1,118 @@
-# Informe de entrenamiento y despliegue - Logistic Regression para Offer_Received
+# Informe ejecutivo - Logistic Regression para Offer_Received
 
-## 1. Resumen ejecutivo
+## 1. Mensaje clave
 
-Este notebook construye un clasificador binario para predecir `Offer_Received` priorizando la detección de la clase positiva `SI OFERTA (1)`. El flujo usa un `Pipeline` con preprocesamiento diferenciado, búsqueda de hiperparámetros, calibración de umbral y evaluación final sobre conjunto de prueba.
+Este proyecto construye un clasificador binario para anticipar `Offer_Received` con foco en la clase positiva `SI OFERTA (1)`. La versión final no se limita al notebook: queda empaquetada en dos artefactos reutilizables, uno para la línea base y otro para la versión mejorada.
 
-La configuración final encontrada fue:
+El flujo final fue:
+
+- `baseline`: pipeline entrenado con umbral 0.50 para tener una referencia clara.
+- `improved`: pipeline ajustado con búsqueda de hiperparámetros y umbral óptimo.
+
+### Configuración final del modelo mejorado
 
 - `solver = saga`
 - `penalty = l2`
 - `C = 0.03`
 - `threshold óptimo = 0.30`
 
-Con ese ajuste, el modelo prioriza recall de la clase positiva, que era el objetivo principal del proyecto.
+## 2. Archivos entregables
 
-## 2. Qué se hizo en el notebook
+### Modelos serializados
 
-- Se cargó el dataset limpio `dataset_offer_Received.csv`.
-- Se separaron variables numéricas y categóricas.
-- Se entrenó `LogisticRegression` dentro de un `Pipeline` con `StandardScaler` y `OneHotEncoder`.
-- Se optimizaron hiperparámetros con `GridSearchCV` y validación cruzada estratificada.
-- Se ajustó el umbral de decisión para priorizar `SI OFERTA`.
-- Se generaron gráficas del entrenamiento y la evaluación.
-- Se serializó el modelo final con metadata en formato `.pkl`.
+- [Baseline](logistic_regression_offer_received_base.pkl)
+- [Mejorado](logistic_regression_offer_received_improved.pkl)
 
-## 3. Artefactos generados
+### Gráficas del baseline
 
-### Modelo serializado
-- `logistic_regression_offer_received.pkl`
+![Matriz de confusión baseline](../imagenes/logistic_confusion_matrix_base.png)
 
-### Imágenes PNG
-- `logistic_regression_confusion_matrix.png`
-- `logistic_regression_roc_curve.png`
-- `logistic_regression_precision_recall_curve.png`
-- `logistic_regression_threshold_tradeoff.png`
-- `logistic_regression_top_coefficients.png`
+![Curva ROC baseline](../imagenes/logistic_roc_base.png)
 
-## 4. Qué contiene el archivo `.pkl`
+![Curva Precision-Recall baseline](../imagenes/logistic_pr_base.png)
 
-El archivo `.pkl` guarda un diccionario con esta estructura:
+![Barrido de umbral baseline](../imagenes/logistic_threshold_base.png)
 
-- `pipeline`: el pipeline entrenado con preprocesamiento y regresión logística.
-- `best_threshold`: el umbral óptimo para convertir probabilidades en clase final.
-- `best_params`: los mejores hiperparámetros encontrados.
-- `target_name`: nombre de la variable objetivo.
-- `feature_columns`: columnas esperadas de entrada.
-- `numeric_columns`: columnas numéricas.
-- `categorical_columns`: columnas categóricas.
-- `metrics_default_threshold`: métricas con umbral 0.50.
-- `metrics_optimized_threshold`: métricas con umbral óptimo.
-- `threshold_preview`: tabla resumida del barrido de umbrales.
+### Gráficas del modelo mejorado
 
-## 5. Entradas del modelo
+![Importancia de coeficientes mejorado](../imagenes/logistic_regression_top_coefficients.png)
 
-Las entradas deben tener exactamente la misma estructura del dataset limpio usado en entrenamiento, pero sin la columna objetivo `Offer_Received`.
+![Matriz de confusión mejorado](../imagenes/logistic_regression_confusion_matrix.png)
 
-Columnas esperadas:
+![Curva ROC mejorado](../imagenes/logistic_regression_roc_curve.png)
 
-```python
-['GPA', 'University_Rating', 'Major_Category', 'Region', 'Prior_Internships', 'Extra_Curricular_Activities', 'Networking_Events_Attended', 'School_Size', 'Primary_Search_Platform', 'Months_Searching', 'Applications_Submitted', 'First_Round_Interviews', 'Second_Round_Interviews']
-```
+![Curva Precision-Recall mejorado](../imagenes/logistic_regression_precision_recall_curve.png)
 
-## 6. Salidas del modelo
+![Barrido de umbral mejorado](../imagenes/logistic_regression_threshold_tradeoff.png)
 
-El artefacto permite obtener tres cosas principales:
+## 3. Lectura ejecutiva de las gráficas
 
-- `pipeline.predict_proba(X)[:, 1]`: probabilidad de la clase `SI OFERTA (1)`.
-- `pipeline.predict(X)`: clase predicha con la configuración interna del modelo.
-- Predicción ajustada por umbral usando `best_threshold`.
+Las gráficas no están pensadas para mostrar código, sino para resumir el comportamiento del modelo en términos de negocio:
 
-La salida principal para negocio es la probabilidad de pertenecer a `SI OFERTA (1)` y la clase resultante al aplicar el umbral óptimo.
+- ¿El modelo separa bien a quienes sí reciben oferta de quienes no? Eso se ve en la curva ROC.
+- ¿El modelo sirve de verdad cuando la clase importante es `SI OFERTA (1)`? Eso se ve mejor en la curva Precision-Recall.
+- ¿Qué sucede si ajustamos la regla de decisión de 0.50 a otro valor? Eso se ve en el barrido de umbral.
+- ¿Qué variables pesan más en la decisión? Eso se ve en la gráfica de coeficientes del modelo mejorado.
 
-## 7. Cómo obtener el porcentaje de seguridad
+### Lo que dicen los números
 
-La seguridad de la predicción se interpreta como la probabilidad estimada para la clase positiva.
+- En el baseline, el modelo detectaba `77.56%` de los casos positivos reales (`Recall = 0.7756`).
+- En el modelo mejorado, esa cobertura subió a `95.33%` (`Recall = 0.9533`).
+- La `ROC-AUC` se mantuvo en `0.8940`, así que la mejora no vino de separar mejor las clases, sino de tomar una mejor decisión final con el umbral.
+- El `F-beta (1.5)` subió de `0.7511` a `0.8100`, lo que confirma que la mejora sí ayudó al objetivo principal.
 
-Fórmula:
+En términos ejecutivos: el modelo mejorado recupera más casos positivos reales, aunque incrementa los falsos positivos.
 
-```python
-porcentaje_seguridad = probabilidad_clase_1 * 100
-```
+## 4. Qué muestra el baseline
 
-Ejemplo:
+La línea base sirve para responder una pregunta de control: ¿cómo se comporta el modelo sin optimizaciones adicionales? Esa referencia permite medir de forma objetiva si los ajustes posteriores aportan valor.
 
-- Si `probabilidad_clase_1 = 0.93`, entonces `porcentaje_seguridad = 93%`.
+### Baseline en una frase
 
-## 8. Métricas principales
+El baseline ya es competitivo: detecta una gran parte de las ofertas reales, pero todavía puede afinarse para recuperar más positivos sin perder trazabilidad.
 
-Con el umbral optimizado se obtuvo:
+### Lectura visual del baseline
+
+La matriz de confusión muestra el balance entre verdaderos positivos, falsos negativos, falsos positivos y verdaderos negativos. En este problema, lo más importante es reducir los falsos negativos, porque un falso negativo significa dejar pasar un caso que sí recibía oferta.
+
+La curva ROC muestra separabilidad general. Aquí el valor de `0.8940` indica que el modelo tiene una separación buena, aunque no perfecta. La curva Precision-Recall es más útil porque la clase positiva es la que importa. El barrido de umbral explica por qué mover la regla de `0.50` a un valor menor mejora el recall.
+
+## 5. Qué cambia en el modelo mejorado
+
+El modelo mejorado conserva la misma estructura base, pero añade dos decisiones que cambian el resultado:
+
+1. Búsqueda de hiperparámetros con validación cruzada.
+2. Ajuste de umbral para priorizar la clase `SI OFERTA (1)`.
+
+### Qué hace cada mejora
+
+- La búsqueda de hiperparámetros prueba varias configuraciones del modelo para quedarse con la que mejor generaliza.
+- El ajuste de umbral cambia la regla de decisión final: en vez de exigir 50% exacto, el modelo puede decidir con un umbral más sensible para no perder casos positivos.
+
+### Resultado de negocio
+
+La mejora no busca maximizar una sola métrica. Busca un equilibrio operativo más útil:
+
+- más recall para no dejar escapar ofertas reales,
+- una precisión todavía razonable,
+- y un objeto serializado listo para reutilizar.
+
+### ¿Sirvió la mejora?
+
+Sí, para el objetivo principal sí sirvió. Si la prioridad era detectar más casos reales de `SI OFERTA (1)`, la mejora fue útil porque elevó de forma importante el recall. Si la prioridad hubiera sido maximizar precision, entonces el baseline sería más conveniente, porque el modelo mejorado incrementa los falsos positivos.
+
+## 6. Resultados cuantitativos
+
+### Baseline con umbral 0.50
+
+- `Accuracy = 0.8101`
+- `Precision = 0.7012`
+- `Recall = 0.7756`
+- `F1-Score = 0.7365`
+- `F-beta (1.5) = 0.7511`
+- `ROC-AUC = 0.8940`
+
+### Modelo mejorado con umbral óptimo
 
 - `Accuracy = 0.7713`
 - `Precision = 0.6054`
@@ -95,128 +121,110 @@ Con el umbral optimizado se obtuvo:
 - `F-beta (1.5) = 0.8100`
 - `ROC-AUC = 0.8940`
 
-La matriz de confusión orientada a `SI OFERTA` quedó con:
+### Lectura ejecutiva
 
-- `TP = 6526`
-- `FN = 320`
-- `FP = 4254`
-- `TN = 8900`
+La mejora sacrifica parte de la precisión para recuperar muchos más casos positivos. Esa es una decisión correcta si el objetivo de negocio es no dejar pasar candidatos que sí recibieron oferta.
 
-## 9. Variables transformadas y lectura del modelo
+En otras palabras: el modelo mejorado es más adecuado para capturar oportunidades; el baseline es preferible si se busca una decisión más estricta. Para este proyecto, la primera opción es la correcta porque el costo de perder un caso positivo es más alto que el costo de revisar algunos falsos positivos.
 
-El modelo no opera sobre 13 columnas originales, sino sobre 26 variables transformadas:
+## 7. Qué explica el modelo
 
-- 8 variables numéricas estandarizadas.
-- 18 variables binarias nuevas creadas a partir de las categorías originales.
+La regresión logística trabaja sobre 26 variables transformadas:
 
-Las expansiones fueron:
+- 8 numéricas estandarizadas.
+- 18 variables binarias generadas por codificación categórica.
 
-- `University_Rating` -> `Lower-tier`, `Mid-tier`, `Top-tier`.
-- `Major_Category` -> `Arts`, `Business`, `Healthcare`, `Humanities`, `STEM`.
-- `Region` -> `Midwest`, `Northeast`, `South`, `West`.
-- `School_Size` -> `Large`, `Medium`, `Small`.
-- `Primary_Search_Platform` -> `Handshake`, `Indeed`, `LinkedIn`.
+### Variables que empujan hacia `SI OFERTA (1)`
 
-### Variables con mayor efecto positivo sobre `SI OFERTA`
+- `Second_Round_Interviews`
+- `Prior_Internships`
+- `GPA`
+- `University_Rating_Top-tier`
+- `Primary_Search_Platform_LinkedIn`
 
-- `num__Second_Round_Interviews = +2.325704`
-- `num__Prior_Internships = +0.452109`
-- `num__GPA = +0.196455`
-- `cat__University_Rating_Top-tier = +0.099526`
-- `cat__Primary_Search_Platform_LinkedIn = +0.043241`
-- `cat__Major_Category_Business = +0.033551`
-- `cat__Primary_Search_Platform_Handshake = +0.018884`
-- `cat__Major_Category_Humanities = +0.018818`
-- `cat__School_Size_Small = +0.013824`
-- `cat__Region_South = +0.013140`
+### Variables que empujan hacia `NO OFERTA (0)`
 
-### Variables con mayor efecto negativo sobre `SI OFERTA`
+- `First_Round_Interviews`
+- `Applications_Submitted`
+- `Primary_Search_Platform_Indeed`
+- `Major_Category_Arts`
+- `University_Rating_Mid-tier`
 
-- `num__First_Round_Interviews = -0.579221`
-- `num__Applications_Submitted = -0.228509`
-- `cat__Primary_Search_Platform_Indeed = -0.068537`
-- `cat__Major_Category_Arts = -0.060822`
-- `cat__University_Rating_Mid-tier = -0.054697`
-- `cat__University_Rating_Lower-tier = -0.051240`
-- `num__Months_Searching = -0.029172`
-- `cat__School_Size_Medium = -0.023975`
-- `cat__Region_West = -0.016408`
-- `cat__Region_Northeast = -0.011481`
+La lectura es intuitiva: el progreso en entrevistas y la solidez del perfil empujan la probabilidad hacia la oferta; la acumulación de aplicaciones y más tiempo buscando sin avance tienden a moverla en sentido contrario.
 
-La interpretación es directa: más avance en entrevistas, más prácticas y mejor perfil académico aumentan la probabilidad de oferta; más tiempo buscando, más aplicaciones enviadas y algunas combinaciones de plataforma/categoría reducen esa probabilidad.
+## 8. Interpretación de las gráficas
 
-## 10. Decisiones técnicas que cambiaron el resultado
+### Baseline
 
-1. Se mantuvo `class_weight='balanced'` para no ignorar la clase positiva.
-2. Se hizo `train_test_split` estratificado para conservar la proporción de clases.
-3. Se entrenó con `GridSearchCV` sobre `solver`, `penalty` y `C`.
-4. La mejor configuración fue `solver='saga'`, `penalty='l2'`, `C=0.03`.
-5. El umbral se optimizó en `0.30` usando `F-beta (1.5)` para priorizar recall.
+Las gráficas del baseline permiten entender el comportamiento inicial del modelo sin ajustes finos:
 
-El impacto frente al umbral base de `0.50` fue:
+- la matriz de confusión muestra el punto de partida y cuántos casos positivos se estaban perdiendo,
+- la ROC resume separabilidad con un valor estable de `0.8940`,
+- la Precision-Recall muestra utilidad para la clase positiva y deja ver que el problema no era tanto separar, sino decidir mejor,
+- el barrido de umbral evidencia que el umbral de `0.50` era demasiado conservador para este objetivo.
 
-- `Accuracy`: `0.8101 -> 0.7713` (`-0.0388`)
-- `Precision`: `0.7012 -> 0.6054` (`-0.0958`)
-- `Recall`: `0.7756 -> 0.9533` (`+0.1776`)
-- `F1-Score`: `0.7365 -> 0.7405` (`+0.0040`)
-- `F-beta (1.5)`: `0.7511 -> 0.8100` (`+0.0589`)
-- `ROC-AUC`: `0.8940 -> 0.8940` (`0.0000`)
+### Mejorado
 
-## 11. Lectura operativa de la matriz de confusión
+Las gráficas del modelo mejorado muestran la versión lista para uso:
 
-Con el orden `[1, 0]`, la lectura prioriza `SI OFERTA`:
+- la importancia de coeficientes explica qué variables sostienen la predicción: por ejemplo, `Second_Round_Interviews` es la señal más fuerte,
+- la matriz de confusión permite leer errores operativos y muestra que bajaron mucho los falsos negativos,
+- ROC y Precision-Recall resumen el desempeño global,
+- el barrido de umbral justifica la decisión de negocio detrás del umbral final de `0.30`.
 
-- `TP = 6526`: ofertas reales detectadas.
-- `FN = 320`: ofertas reales perdidas.
-- `FP = 4254`: no ofertas marcadas como oferta.
-- `TN = 8900`: no ofertas correctamente descartadas.
+## 9. Artefacto `.pkl`
 
-En proporción por clase real, el modelo captura aproximadamente `95%` de los casos positivos reales y clasifica correctamente cerca de `68%` de los casos negativos.
+Cada `.pkl` guarda el pipeline y la metadata necesaria para reusar el modelo sin abrir el notebook.
 
-## 12. Script mínimo de inferencia
+### Contenido principal
+
+- `pipeline`
+- `best_threshold`
+- `best_params`
+- `feature_columns`
+- `numeric_columns`
+- `categorical_columns`
+- `metrics_default_threshold`
+- `metrics_optimized_threshold`
+- `threshold_preview`
+- `model_stage`
+
+## 10. Ejemplo de uso con `entradas`
 
 ```python
 import pickle
 from pathlib import Path
 import pandas as pd
 
-MODEL_PATH = Path("job/outputs_logistic_regression/informe/logistic_regression_offer_received.pkl")
+MODEL_PATH = Path("logistic_regression_offer_received_improved.pkl")
 
 with open(MODEL_PATH, "rb") as f:
-    artifact = pickle.load(f)
+	artifact = pickle.load(f)
 
 modelo = artifact["pipeline"]
 umbral = artifact["best_threshold"]
 feature_columns = artifact["feature_columns"]
 
-# Define manualmente una fila de entrada usando las mismas columnas del entrenamiento.
-# Cambia estos valores por el caso real que quieras evaluar.
-entrada = pd.DataFrame([{
-    "GPA": 2.0,
-    "University_Rating": "Top-tier",
-    "Major_Category": "STEM",
-    "Region": "West",
-    "Prior_Internships": 1,
-    "Extra_Curricular_Activities": 1,
-    "Networking_Events_Attended": 3,
-    "School_Size": "Medium",
-    "Primary_Search_Platform": "LinkedIn",
-    "Months_Searching": 6,
-    "Applications_Submitted": 25,
-    "First_Round_Interviews": 4,
-    "Second_Round_Interviews": 2,
+entradas = pd.DataFrame([{
+	"GPA": 3.2,
+	"University_Rating": "Top-tier",
+	"Major_Category": "STEM",
+	"Region": "West",
+	"Prior_Internships": 2,
+	"Extra_Curricular_Activities": 1,
+	"Networking_Events_Attended": 4,
+	"School_Size": "Medium",
+	"Primary_Search_Platform": "LinkedIn",
+	"Months_Searching": 4,
+	"Applications_Submitted": 18,
+	"First_Round_Interviews": 3,
+	"Second_Round_Interviews": 2,
 }])
 
-# Asegura el mismo orden de columnas que se usó al entrenar.
-entrada = entrada[feature_columns]
+entradas = entradas[feature_columns]
 
-# 1. Probabilidad estimada de recibir oferta.
-probabilidad = modelo.predict_proba(entrada)[:, 1][0]
-
-# 2. Clase final usando el umbral óptimo del notebook.
+probabilidad = modelo.predict_proba(entradas)[:, 1][0]
 prediccion = int(probabilidad >= umbral)
-
-# 3. Porcentaje de seguridad para SI OFERTA.
 porcentaje_seguridad = probabilidad * 100
 
 print("prediccion:", prediccion)
@@ -224,23 +232,8 @@ print("probabilidad_clase_1:", round(probabilidad, 4))
 print("porcentaje_seguridad:", round(porcentaje_seguridad, 2), "%")
 ```
 
-## 13. Lectura operativa
+## 11. Cierre ejecutivo
 
-El modelo está orientado a minimizar falsos negativos sobre `SI OFERTA`. Por eso el umbral óptimo es 0.30 y no 0.50. Ese ajuste mejora la captura de positivos reales, aunque aumenta los falsos positivos.
+La conclusión principal es clara: el notebook no solo produce un modelo, produce una comparación entre una referencia base y una versión ajustada. Eso hace que el resultado sea presentable, auditable y reutilizable.
 
-En términos prácticos:
-
-- Si necesitas cobertura sobre posibles ofertas, usa el umbral óptimo del archivo `.pkl`.
-- Si necesitas una decisión más estricta, puedes subir el umbral, pero perderás recall.
-
-## 14. Uso recomendado
-
-1. Cargar el `.pkl` con `pickle.load`.
-2. Preparar un `DataFrame` con las columnas esperadas.
-3. Calcular `predict_proba`.
-4. Aplicar el umbral óptimo `best_threshold`.
-5. Interpretar `probabilidad_clase_1 * 100` como porcentaje de seguridad.
-
-## 15. Observación final
-
-Este notebook se diseñó para explicar y priorizar la clase `SI OFERTA (1)`. Las gráficas exportadas en PNG respaldan la interpretación del modelo y el archivo `.pkl` permite reutilizar el entrenamiento sin repetir todo el proceso.
+La versión mejorada es la recomendada para uso operativo porque sí cumplió el objetivo principal: aumentar la detección de `SI OFERTA (1)`. La baseline queda como respaldo metodológico y como punto de comparación para futuras iteraciones.
