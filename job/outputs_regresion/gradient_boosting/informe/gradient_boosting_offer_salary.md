@@ -1,8 +1,10 @@
-# Informe ejecutivo - Gradient Boosting
+# Informe ejecutivo - Gradient Boosting para Offer_Salary
 
 ## 1. Resumen ejecutivo
 
-Este informe presenta el desempeno del modelo **Gradient Boosting** para predecir `Offer_Salary` a partir de `dataset_offer_Salary.csv`.
+Este informe documenta el modelo **Gradient Boosting** para predecir `Offer_Salary` a partir de `dataset_offer_Salary.csv`.
+
+Gradient Boosting construye árboles secuenciales que corrigen los errores del paso anterior. En este taller quedó muy cerca de la familia lineal, pero sin superarla.
 
 ### Resultado principal
 
@@ -12,7 +14,7 @@ Este informe presenta el desempeno del modelo **Gradient Boosting** para predeci
 - `RMSE train`: 7981.4820
 - `Brecha RMSE (test - train)`: -29.6482
 
-**Lectura operativa:** La lectura por importancia permite identificar las variables que mas explican la variacion del salario dentro del modelo.
+**Lectura operativa:** Gradient Boosting ofrece una generalización razonable y un comportamiento muy cercano al de regresión lineal y Ridge, pero no logra arrebatarles el liderazgo a los modelos lineales regularizados. Su principal valor aquí es que confirma la estabilidad de la señal del problema: el salto de complejidad no produce una mejora significativa.
 
 ## 2. Archivos entregables
 
@@ -32,7 +34,7 @@ Este informe presenta el desempeno del modelo **Gradient Boosting** para predeci
 - **Train**: `MAE=6362.6054` | `RMSE=7981.4820` | `R2=0.7163`
 - **Test**: `MAE=6349.8631` | `RMSE=7951.8339` | `R2=0.7077`
 
-Interpretacion: una brecha train-test pequena sugiere mejor capacidad de generalizacion; una brecha amplia sugiere riesgo de sobreajuste.
+La brecha train-test es pequeña y, de hecho, el `RMSE` de prueba resulta un poco menor que el de entrenamiento (`-29.6482`). Esto sugiere un comportamiento estable, aunque no suficiente para superar al mejor modelo. La generalización es buena, pero la mejora frente a la familia lineal es marginal.
 
 ## 5. Lectura ejecutiva de las graficas
 
@@ -40,19 +42,19 @@ Interpretacion: una brecha train-test pequena sugiere mejor capacidad de general
 
 ![Real vs predicho](../imagenes/gradient_boosting_real_vs_predicho.png)
 
-Si los puntos se acercan a la diagonal, el modelo predice salarios con mejor precision.
+La dispersión sigue un patrón consistente, pero no tan ajustado como el de Lasso. El gráfico muestra que el modelo aproxima bien la tendencia general, aunque con más variabilidad que la mejor solución final.
 
 ### Distribucion de residuos
 
 ![Distribucion de residuos](../imagenes/gradient_boosting_residuos_hist.png)
 
-Permite revisar si los errores se concentran cerca de cero o si hay colas con errores grandes.
+Los residuos aparecen repartidos de forma razonable alrededor de cero. El modelo no presenta un sesgo extremo, pero tampoco mejora claramente la precisión del mejor enfoque lineal.
 
 ### Residuos vs prediccion
 
 ![Residuos vs prediccion](../imagenes/gradient_boosting_residuos_vs_prediccion.png)
 
-Permite detectar patrones de sesgo: por ejemplo, si el modelo falla mas en rangos altos de salario.
+Este gráfico ayuda a revisar si el boosting captura patrones no lineales relevantes. La lectura práctica es que sí aprende relaciones útiles, pero no lo suficiente como para justificar su mayor complejidad frente a Lasso.
 
 ### Variables mas influyentes
 
@@ -71,6 +73,8 @@ Permite detectar patrones de sesgo: por ejemplo, si el modelo falla mas en rango
 - `numeric__GPA`: `0.0274`
 - `categorical__Major_Category_Arts`: `0.0131`
 
+Las variables más importantes vuelven a ser las mismas que en el resto del taller. Eso es una buena señal: el modelo está captando la misma estructura subyacente del problema, pero sin una mejora real suficiente para desplazar a la solución regularizada.
+
 
 ## 6. Uso del modelo serializado
 
@@ -86,12 +90,24 @@ with open(artifact_path, 'rb') as f:
 pipeline = artifact['pipeline']
 feature_columns = artifact['feature_columns']
 
-# Ejemplo: reemplazar por un registro real con las mismas columnas
 nuevo = pd.DataFrame([{col: 0 for col in feature_columns}])
 pred_salary = pipeline.predict(nuevo[feature_columns])[0]
 print('Prediccion de salario:', round(float(pred_salary), 2))
 ```
 
-## 7. Conclusion
+### Explicación del uso
 
-El modelo **Gradient Boosting** queda disponible para uso operativo y comparacion tecnica frente a los otros algoritmos del notebook. Este informe deja trazabilidad completa de metricas, parametros, variables relevantes y artefactos.
+1. Se carga el modelo en pickle.
+2. Se reutiliza el pipeline completo con preprocesamiento.
+3. Se arma una fila con el mismo esquema de variables.
+4. Se calcula la predicción de salario.
+
+## 7. Comparación técnica dentro del taller
+
+Gradient Boosting quedo muy cerca de la familia lineal, pero aún por detrás de Lasso por `9.8991` puntos de RMSE. Eso lo posiciona como un modelo competitivo, aunque no como el ganador. En comparación con Random Forest y el árbol simple, sí ofrece una mejor relación entre sesgo y varianza, pero no alcanza el mejor equilibrio global.
+
+## 8. Conclusion
+
+El modelo **Gradient Boosting** es sólido y competitivo, pero en este dataset no supera a la solución lineal regularizada. Su papel dentro del taller es importante porque confirma que la señal es relativamente estable y que la ganancia de complejidad es limitada.
+
+Si se prioriza el mejor desempeño, Lasso sigue siendo la elección final. Si se valora explorar una alternativa no lineal cercana en calidad, Gradient Boosting es la mejor de las opciones basadas en árboles.
