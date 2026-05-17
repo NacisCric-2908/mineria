@@ -1,0 +1,183 @@
+{
+  "model_name": "KNN",
+  "target": "Offer_Received",
+  "artifact_paths": {
+    "baseline_model": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\informe\\knn_offer_received_base.pkl",
+    "pca_model": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\informe\\knn_offer_received_pca.pkl",
+    "summary_json": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\informe\\knn_offer_received_summary.json",
+    "baseline_confusion": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_confusion_base.png",
+    "baseline_roc": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_roc_base.png",
+    "baseline_pr": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_pr_base.png",
+    "baseline_threshold": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_threshold_base.png",
+    "pca_confusion": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_confusion_pca.png",
+    "pca_roc": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_roc_pca.png",
+    "pca_pr": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_pr_pca.png",
+    "pca_threshold": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_threshold_pca.png",
+    "pca_variance": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_pca_variance.png",
+    "pca_loadings": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_pca_loadings.png",
+    "model_comparison": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_knn\\imagenes\\knn_model_comparison.png"
+  },
+  "baseline": {
+    "best_threshold": 0.5,
+    "best_params": {
+      "model__n_neighbors": 5,
+      "model__weights": "uniform",
+      "model__metric": "minkowski",
+      "model__p": 2
+    },
+    "metrics": {
+      "Accuracy": 0.83105,
+      "Precision": 0.7519255922104345,
+      "Recall": 0.7557697925796085,
+      "F1-Score": 0.7538427915786406,
+      "F-beta (1.5)": 0.7545827817541341,
+      "ROC-AUC": 0.9003379192470009,
+      "Average Precision": 0.7747244117729865
+    }
+  },
+  "pca_model": {
+    "best_threshold": 0.32499999999999996,
+    "best_params": {
+      "model__n_neighbors": 13,
+      "model__weights": "distance",
+      "pca__n_components": 0.9
+    },
+    "metrics": {
+      "Accuracy": 0.83805,
+      "Precision": 0.6972547303948375,
+      "Recall": 0.9312007011393515,
+      "F1-Score": 0.7974232284695728,
+      "F-beta (1.5)": 0.8440612714643636,
+      "ROC-AUC": 0.9346198925948397,
+      "Average Precision": 0.8624738109457756
+    }
+  },
+  "comparison": [
+    {
+      "Metrica": "Accuracy",
+      "Baseline": 0.831,
+      "PCA": 0.838,
+      "Delta": 0.007
+    },
+    {
+      "Metrica": "Precision",
+      "Baseline": 0.7519,
+      "PCA": 0.6973,
+      "Delta": -0.0547
+    },
+    {
+      "Metrica": "Recall",
+      "Baseline": 0.7558,
+      "PCA": 0.9312,
+      "Delta": 0.1754
+    },
+    {
+      "Metrica": "F1-Score",
+      "Baseline": 0.7538,
+      "PCA": 0.7974,
+      "Delta": 0.0436
+    },
+    {
+      "Metrica": "F-beta (1.5)",
+      "Baseline": 0.7546,
+      "PCA": 0.8441,
+      "Delta": 0.0895
+    },
+    {
+      "Metrica": "ROC-AUC",
+      "Baseline": 0.9003,
+      "PCA": 0.9346,
+      "Delta": 0.0343
+    },
+    {
+      "Metrica": "Average Precision",
+      "Baseline": 0.7747,
+      "PCA": 0.8625,
+      "Delta": 0.0877
+    }
+  ],
+  "threshold_preview": [
+    {
+      "threshold": 0.05,
+      "precision": 0.4902681855,
+      "recall": 0.9979916012,
+      "f1": 0.6575243594,
+      "f_beta_1_5": 0.7568298736
+    },
+    {
+      "threshold": 0.055,
+      "precision": 0.4903121636,
+      "recall": 0.9979916012,
+      "f1": 0.6575639098,
+      "f_beta_1_5": 0.7568621185
+    },
+    {
+      "threshold": 0.06,
+      "precision": 0.4905321727,
+      "recall": 0.9979916012,
+      "f1": 0.6577617329,
+      "f_beta_1_5": 0.7570233846
+    },
+    {
+      "threshold": 0.065,
+      "precision": 0.4918121288,
+      "recall": 0.9979916012,
+      "f1": 0.658911458,
+      "f_beta_1_5": 0.7579600849
+    },
+    {
+      "threshold": 0.07,
+      "precision": 0.5050897649,
+      "recall": 0.9965309476,
+      "f1": 0.6703924338,
+      "f_beta_1_5": 0.7669293211
+    },
+    {
+      "threshold": 0.075,
+      "precision": 0.5325310635,
+      "recall": 0.993792222,
+      "f1": 0.6934641356,
+      "f_beta_1_5": 0.7846679308
+    },
+    {
+      "threshold": 0.08,
+      "precision": 0.5474871588,
+      "recall": 0.9925141501,
+      "f1": 0.7056990783,
+      "f_beta_1_5": 0.7939421856
+    },
+    {
+      "threshold": 0.085,
+      "precision": 0.5536769199,
+      "recall": 0.9925141501,
+      "f1": 0.7108205296,
+      "f_beta_1_5": 0.7979224299
+    },
+    {
+      "threshold": 0.09,
+      "precision": 0.5555442003,
+      "recall": 0.9925141501,
+      "f1": 0.7123574892,
+      "f_beta_1_5": 0.7991134531
+    },
+    {
+      "threshold": 0.095,
+      "precision": 0.5564086814,
+      "recall": 0.9923315684,
+      "f1": 0.7130206625,
+      "f_beta_1_5": 0.7995812822
+    }
+  ],
+  "baseline_metrics_table": [
+    {
+      "Umbral": 0.5,
+      "Accuracy": 0.831,
+      "Precision": 0.7519,
+      "Recall": 0.7558,
+      "F1-Score": 0.7538,
+      "F-beta (1.5)": 0.7546,
+      "ROC-AUC": 0.9003,
+      "Average Precision": 0.7747
+    }
+  ]
+}

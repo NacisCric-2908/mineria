@@ -1,0 +1,7 @@
+Acción,Táctica,Código,Impacto
+INMEDIATA,Reasignar a Handshake,"students_handshake = raw_df[raw_df[""Primary_Search_Platform""] == ""Handshake""]","Potencial: +11,207 estudiantes con oferta"
+CORTO PLAZO,Intensificar interview coaching (2da ronda),"coaching_target = raw_df[raw_df[""Second_Round_Interviews""] == 0]",r=0.5492 → Mayor predictor que cualquier otro
+CORTO PLAZO,Segmentar estrategia por major,"stem_students = raw_df[raw_df[""Major_Category""] == ""STEM""]",Diferenciar tácticas: STEM 35.5% vs Arts 32.5%
+MEDIO PLAZO,Enfoque en CALIDAD vs volumen de aplicaciones,"quality_over_quantity = raw_df[raw_df[""Applications_Submitted""] < raw_df[""Applications_Submitted""].quantile(0.33)]","r=0.22 débil → Optimize quality score en CV, cover letter"
+LARGO PLAZO,Construir modelo predictivo (2 objetivos),"model_offer = target_encode([""Second_Round_Interviews"", ""First_Round_Interviews"", ""Primary_Search_Platform""])",Predicción personalizada de probabilidad de oferta por estudiante
+NO HACER,NO enfocarse en aumentar volumen de aplicaciones,"❌ NO raw_df[""Applications_Submitted""].max()",Desperdicia recursos; r=0.22 no justifica esfuerzo

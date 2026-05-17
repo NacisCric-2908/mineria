@@ -1,0 +1,7 @@
+dimension,evidencia,conclusion_operativa
+Eficacia global,"La tasa de oferta es 34.23% sobre 100,000 estudiantes.",El proceso tiene margen de mejora: alrededor de 2 de cada 3 estudiantes no reciben oferta.
+Eficacia por canal,Handshake lidera con 36.99% y Indeed queda en 25.79%.,Priorizar Handshake puede capturar una mejora potencial de 11.20 pp frente al canal menos eficaz.
+Calidad del embudo,La correlacion Applications->1ra entrevista es 0.419.,"Aplicar mas ayuda, pero la conversion a entrevistas es el cuello critico a optimizar."
+Determinantes de oferta,La mayor correlacion con Offer_Received es Second_Round_Interviews (r=0.5492).,El avance en etapas de entrevista explica mejor el resultado final que el volumen bruto de aplicaciones.
+Brecha salarial,"La brecha de salario promedio por major es $21,061.75.",Las expectativas salariales deben calibrarse por categoria academica para decisiones realistas.
+Variacion territorial,La brecha regional de tasa de oferta es 0.45 pp (South vs Northeast).,El efecto regional existe pero es menor que el efecto plataforma/embudo en este corte.

@@ -1,0 +1,6 @@
+{
+  "name": "UniCareer ML Dashboard",
+  "description": "Dashboard interactivo con predicciones de Machine Learning sobre empleabilidad universitaria (100k registros).",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
