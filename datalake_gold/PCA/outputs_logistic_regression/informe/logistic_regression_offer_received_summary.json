@@ -1,0 +1,188 @@
+{
+  "model_name": "LogisticRegression",
+  "target": "Offer_Received",
+  "artifact_paths": {
+    "model": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/informe/logistic_regression_offer_received_improved.pkl",
+    "report": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/informe/logistic_regression_offer_received.md",
+    "summary_json": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/informe/logistic_regression_offer_received_summary.json",
+    "confusion_matrix": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/imagenes/logistic_regression_confusion_matrix.png",
+    "roc_curve": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/imagenes/logistic_regression_roc_curve.png",
+    "precision_recall_curve": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/imagenes/logistic_regression_precision_recall_curve.png",
+    "threshold_tradeoff": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/imagenes/logistic_regression_threshold_tradeoff.png",
+    "coefficients_plot": "/Users/apple/Documents/Medallion/datalake_gold/PCA/outputs_logistic_regression/imagenes/logistic_regression_top_coefficients.png"
+  },
+  "best_threshold": 0.31,
+  "best_params": {
+    "model__C": 0.03,
+    "model__penalty": "l1",
+    "model__solver": "liblinear"
+  },
+  "metrics": {
+    "threshold_0_50": {
+      "Accuracy": 0.809,
+      "Precision": 0.6996569015571391,
+      "Recall": 0.7744668419515045,
+      "F1-Score": 0.7351636161952302,
+      "F-beta (1.5)": 0.7497987511694189,
+      "ROC-AUC": 0.8937682024811276
+    },
+    "threshold_optimized": {
+      "Accuracy": 0.77505,
+      "Precision": 0.610697104046788,
+      "Recall": 0.9456617002629273,
+      "F1-Score": 0.7421333180489482,
+      "F-beta (1.5)": 0.8091099617373916,
+      "ROC-AUC": 0.8937682024811276
+    }
+  },
+  "confusion_matrix": {
+    "tp": 6474,
+    "fn": 372,
+    "fp": 4127,
+    "tn": 9027
+  },
+  "threshold_preview": [
+    {
+      "threshold": 0.31,
+      "precision": 0.6079,
+      "recall": 0.9381,
+      "f1": 0.7377,
+      "f_beta_1_5": 0.8037
+    },
+    {
+      "threshold": 0.32,
+      "precision": 0.613,
+      "recall": 0.9316,
+      "f1": 0.7394,
+      "f_beta_1_5": 0.8032
+    },
+    {
+      "threshold": 0.3,
+      "precision": 0.6018,
+      "recall": 0.9427,
+      "f1": 0.7346,
+      "f_beta_1_5": 0.8028
+    },
+    {
+      "threshold": 0.33,
+      "precision": 0.6185,
+      "recall": 0.924,
+      "f1": 0.741,
+      "f_beta_1_5": 0.8021
+    },
+    {
+      "threshold": 0.34,
+      "precision": 0.6237,
+      "recall": 0.9179,
+      "f1": 0.7427,
+      "f_beta_1_5": 0.8015
+    },
+    {
+      "threshold": 0.35,
+      "precision": 0.6274,
+      "recall": 0.9093,
+      "f1": 0.7425,
+      "f_beta_1_5": 0.7988
+    },
+    {
+      "threshold": 0.36,
+      "precision": 0.6319,
+      "recall": 0.9015,
+      "f1": 0.743,
+      "f_beta_1_5": 0.7969
+    },
+    {
+      "threshold": 0.37,
+      "precision": 0.6372,
+      "recall": 0.8932,
+      "f1": 0.7438,
+      "f_beta_1_5": 0.7949
+    },
+    {
+      "threshold": 0.38,
+      "precision": 0.641,
+      "recall": 0.883,
+      "f1": 0.7428,
+      "f_beta_1_5": 0.7911
+    },
+    {
+      "threshold": 0.39,
+      "precision": 0.645,
+      "recall": 0.8725,
+      "f1": 0.7417,
+      "f_beta_1_5": 0.7871
+    }
+  ],
+  "top_coefficients": [
+    {
+      "feature_transformed": "PC1",
+      "coefficient": 0.6686698961,
+      "abs_coefficient": 0.6686698961,
+      "direction": "Aumenta SI OFERTA",
+      "base_variable": "PC1"
+    },
+    {
+      "feature_transformed": "PC2",
+      "coefficient": 1.333510296,
+      "abs_coefficient": 1.333510296,
+      "direction": "Aumenta SI OFERTA",
+      "base_variable": "PC2"
+    },
+    {
+      "feature_transformed": "PC3",
+      "coefficient": -0.0071852854,
+      "abs_coefficient": 0.0071852854,
+      "direction": "Reduce SI OFERTA",
+      "base_variable": "PC3"
+    },
+    {
+      "feature_transformed": "PC4",
+      "coefficient": 0.0544615675,
+      "abs_coefficient": 0.0544615675,
+      "direction": "Aumenta SI OFERTA",
+      "base_variable": "PC4"
+    },
+    {
+      "feature_transformed": "PC5",
+      "coefficient": 0.0088058689,
+      "abs_coefficient": 0.0088058689,
+      "direction": "Aumenta SI OFERTA",
+      "base_variable": "PC5"
+    },
+    {
+      "feature_transformed": "PC6",
+      "coefficient": -0.4457932969,
+      "abs_coefficient": 0.4457932969,
+      "direction": "Reduce SI OFERTA",
+      "base_variable": "PC6"
+    },
+    {
+      "feature_transformed": "PC7",
+      "coefficient": -0.5746266964,
+      "abs_coefficient": 0.5746266964,
+      "direction": "Reduce SI OFERTA",
+      "base_variable": "PC7"
+    },
+    {
+      "feature_transformed": "PC8",
+      "coefficient": 0.0,
+      "abs_coefficient": 0.0,
+      "direction": "Aumenta SI OFERTA",
+      "base_variable": "PC8"
+    },
+    {
+      "feature_transformed": "PC9",
+      "coefficient": 0.042725147,
+      "abs_coefficient": 0.042725147,
+      "direction": "Aumenta SI OFERTA",
+      "base_variable": "PC9"
+    },
+    {
+      "feature_transformed": "PC10",
+      "coefficient": -0.3034933032,
+      "abs_coefficient": 0.3034933032,
+      "direction": "Reduce SI OFERTA",
+      "base_variable": "PC10"
+    }
+  ]
+}
