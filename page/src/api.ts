@@ -29,6 +29,7 @@ export interface SummariesResponse {
   salario?: ModelMetrics;
   'logistica-pca'?: ModelMetrics;
   'decision-tree-pca'?: ModelMetrics;
+  'naive-bayes'?: ModelMetrics;
 }
 
 export interface PlatformRate { name: string; value: number }

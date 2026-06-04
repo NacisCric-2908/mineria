@@ -53,6 +53,11 @@ MODEL_CONFIGS = {
         "summary": ROOT / "datalake_gold/PCA/outputs_decision_tree_pca/informe/decision_tree_pca_summary.json",
         "type": "classification",
     },
+    "naive-bayes": {
+        "pkl": ROOT / "datalake_gold/outputs_naive_bayes/informe/naive_bayes_offer_received_improved.pkl",
+        "summary": ROOT / "datalake_gold/outputs_naive_bayes/informe/naive_bayes_offer_received_summary.json",
+        "type": "classification",
+    },
 }
 
 _models: dict = {}
@@ -121,6 +126,18 @@ def _normalize_metrics(model_id: str, raw: dict) -> dict:
             "model_name": raw["model_name"],
             "pca_components": pca.get("n_components"),
             "pca_variance": pca.get("explained_variance"),
+        }
+    elif model_id == "naive-bayes":
+        m = raw["metrics"]["threshold_optimized"]
+        return {
+            "type": "classification",
+            "accuracy": m["Accuracy"],
+            "precision": m["Precision"],
+            "recall": m["Recall"],
+            "f1": m["F1-Score"],
+            "roc_auc": m["ROC-AUC"],
+            "threshold": raw["best_threshold"],
+            "model_name": raw["model_name"],
         }
     return {}
 
@@ -369,6 +386,7 @@ _IMAGE_DIRS: dict[str, Path] = {
     "regresion": ROOT / "datalake_gold/outputs_regresion",
     "logistica-pca": ROOT / "datalake_gold/PCA/outputs_logistica_pca/imagenes",
     "decision-tree-pca": ROOT / "datalake_gold/PCA/outputs_decision_tree_pca/imagenes",
+    "naive-bayes": ROOT / "datalake_gold/outputs_naive_bayes/imagenes",
 }
 
 _ALLOWED_EXT = {".png", ".jpg", ".jpeg", ".svg"}

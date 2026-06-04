@@ -57,7 +57,7 @@ function cn(...inputs: ClassValue[]) {
 // --- Types ---
 
 type ViewState = 'landing' | 'login' | 'dashboard';
-type ModelID = 'eda' | 'logistica' | 'knn' | 'decision-tree' | 'salario' | 'logistica-pca' | 'decision-tree-pca';
+type ModelID = 'eda' | 'logistica' | 'knn' | 'decision-tree' | 'salario' | 'logistica-pca' | 'decision-tree-pca' | 'naive-bayes';
 
 interface ModelInfo {
   id: ModelID;
@@ -117,6 +117,13 @@ const MODEL_DEFINITIONS: Omit<ModelInfo, 'metrics'>[] = [
     description: 'Árbol de Decisión con reducción dimensional PCA al 90% de varianza.',
     category: 'ml-pca',
     icon: <Database className="w-5 h-5" />,
+  },
+  {
+    id: 'naive-bayes',
+    name: 'Naive Bayes',
+    description: 'Clasificador probabilístico Gaussian con ajuste de umbral F-beta (1.5).',
+    category: 'ml',
+    icon: <BrainCircuit className="w-5 h-5" />,
   },
 ];
 
@@ -618,6 +625,29 @@ const GALLERY_CONFIGS: Record<string, GalleryTab[]> = {
         { filename: 'decision_tree_pca_confusion_matrix.png', label: 'Matriz de Confusión', section: 'decision-tree-pca' },
         { filename: 'decision_tree_pca_pca_variance.png', label: 'Varianza Explicada PCA', section: 'decision-tree-pca' },
         { filename: 'decision_tree_pca_threshold.png', label: 'Análisis de Umbral', section: 'decision-tree-pca' },
+      ],
+    },
+  ],
+  'naive-bayes': [
+    {
+      id: 'resultados',
+      label: 'Modelo Optimizado',
+      images: [
+        { filename: 'naive_bayes_confusion_matrix.png', label: 'Matriz de Confusión', section: 'naive-bayes' },
+        { filename: 'naive_bayes_roc_curve.png', label: 'Curva ROC', section: 'naive-bayes' },
+        { filename: 'naive_bayes_precision_recall_curve.png', label: 'Precisión-Recall', section: 'naive-bayes' },
+        { filename: 'naive_bayes_threshold_tradeoff.png', label: 'Análisis de Umbral', section: 'naive-bayes' },
+        { filename: 'naive_bayes_model_comparison.png', label: 'Comparativa Base vs Optimizado', section: 'naive-bayes' },
+      ],
+    },
+    {
+      id: 'base',
+      label: 'Modelo Base',
+      images: [
+        { filename: 'naive_bayes_confusion_matrix_base.png', label: 'Confusión (Base)', section: 'naive-bayes' },
+        { filename: 'naive_bayes_roc_base.png', label: 'Curva ROC (Base)', section: 'naive-bayes' },
+        { filename: 'naive_bayes_pr_base.png', label: 'Precisión-Recall (Base)', section: 'naive-bayes' },
+        { filename: 'naive_bayes_target_distribution.png', label: 'Distribución del Target', section: 'naive-bayes' },
       ],
     },
   ],
