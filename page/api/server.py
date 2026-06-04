@@ -263,6 +263,15 @@ def get_eda():
     }
 
 
+@app.get("/api/clustering")
+def get_clustering():
+    summary_path = ROOT / "datalake_gold/outputs_clustering/informe/clustering_summary.json"
+    if not summary_path.is_file():
+        raise HTTPException(404, "clustering_summary.json no encontrado. Re-ejecuta el notebook de clustering.")
+    with open(summary_path, encoding="utf-8") as f:
+        return json.load(f)
+
+
 @app.post("/api/predict/{model_id}")
 async def predict(model_id: str, file: UploadFile = File(...)):
     if model_id not in _models:
@@ -393,6 +402,7 @@ _IMAGE_DIRS: dict[str, Path] = {
     "decision-tree-pca": ROOT / "datalake_gold/PCA/outputs_decision_tree_pca/imagenes",
     "naive-bayes": ROOT / "datalake_gold/outputs_naive_bayes/imagenes",
     "svm": ROOT / "datalake_gold/outputs_svm/imagenes",
+    "clustering": ROOT / "datalake_gold/outputs_clustering/imagenes",
 }
 
 _ALLOWED_EXT = {".png", ".jpg", ".jpeg", ".svg"}

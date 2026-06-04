@@ -37,6 +37,7 @@ import LogoBlanco from '../images/LogoBlanco.png';
 import {
   fetchSummaries,
   fetchEda,
+  fetchClustering,
   predictCsv,
   downloadPredictions,
   checkHealth,
@@ -44,6 +45,7 @@ import {
   type ClassificationMetrics,
   type RegressionMetrics,
   type EdaResponse,
+  type ClusteringResponse,
   type PredictionResult,
   type ClassificationResult,
   type RegressionResult,
@@ -57,7 +59,7 @@ function cn(...inputs: ClassValue[]) {
 // --- Types ---
 
 type ViewState = 'landing' | 'login' | 'dashboard';
-type ModelID = 'eda' | 'logistica' | 'knn' | 'decision-tree' | 'salario' | 'logistica-pca' | 'decision-tree-pca' | 'naive-bayes' | 'svm';
+type ModelID = 'eda' | 'logistica' | 'knn' | 'decision-tree' | 'salario' | 'logistica-pca' | 'decision-tree-pca' | 'naive-bayes' | 'svm' | 'clustering';
 
 interface ModelInfo {
   id: ModelID;
@@ -75,6 +77,13 @@ const MODEL_DEFINITIONS: Omit<ModelInfo, 'metrics'>[] = [
     description: 'Insights globales extraídos de LinkedIn, Handshake e Indeed.',
     category: 'analysis',
     icon: <BarChart3 className="w-5 h-5" />,
+  },
+  {
+    id: 'clustering',
+    name: 'Análisis de Clustering',
+    description: 'KMeans, Clustering Jerárquico y DBSCAN sobre perfiles de estudiantes.',
+    category: 'analysis',
+    icon: <Users className="w-5 h-5" />,
   },
   {
     id: 'logistica',
@@ -991,6 +1000,136 @@ const EDAView = ({ apiOnline }: { apiOnline: boolean }) => {
   );
 };
 
+// --- Clustering View ---
+
+const ClusteringView = ({ apiOnline }: { apiOnline: boolean }) => {
+  const [data, setData] = useState<ClusteringResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!apiOnline) { setLoading(false); return; }
+    fetchClustering()
+      .then(setData)
+      .catch(() => setData(null))
+      .finally(() => setLoading(false));
+  }, [apiOnline]);
+
+  if (loading) return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="card p-6 animate-pulse">
+          <div className="h-4 bg-slate-100 rounded w-24 mb-3" />
+          <div className="h-8 bg-slate-200 rounded w-32" />
+        </div>
+      ))}
+    </div>
+  );
+
+  if (!data) return (
+    <div className="card p-8 flex items-center gap-4 border-amber-200 bg-amber-50">
+      <AlertCircle className="w-6 h-6 text-amber-500 shrink-0" />
+      <div>
+        <p className="font-bold text-amber-800">API no disponible</p>
+        <p className="text-sm text-amber-700">
+          Inicia el servidor con:{' '}
+          <code className="bg-amber-100 px-1 rounded">
+            python -m uvicorn api.server:app --reload --port 8000
+          </code>
+        </p>
+      </div>
+    </div>
+  );
+
+  const km = data.algorithms.kmeans;
+  const hier = data.algorithms.jerarquico;
+  const db = data.algorithms.dbscan;
+  const CLUSTER_COLORS = ['#991b1b', '#1d4ed8'];
+
+  return (
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <KPICard
+          title="Silhouette KMeans"
+          value={km.silhouette.toFixed(4)}
+          icon={<Database className="w-6 h-6" />}
+          sub={`k=${km.k} · estructura débil (< 0.10)`}
+        />
+        <KPICard
+          title="Silhouette Jerárquico"
+          value={hier.silhouette != null ? hier.silhouette.toFixed(4) : '—'}
+          icon={<Users className="w-6 h-6" />}
+          sub={`muestra ${hier.sample_size.toLocaleString('es-CO')} filas`}
+        />
+        <KPICard
+          title="Clusters DBSCAN"
+          value={String(db.n_clusters)}
+          icon={<Search className="w-6 h-6" />}
+          sub={`eps=${db.eps} · ${db.n_ruido.toLocaleString('es-CO')} puntos ruido`}
+        />
+      </div>
+
+      <div className="card p-6">
+        <h4 className="text-lg font-bold mb-4 flex items-center gap-2">
+          <Users className="w-5 h-5 text-red-800" />
+          Perfiles de Clusters — KMeans (k={km.k})
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          {km.cluster_profiles.map((p) => (
+            <div key={p.cluster} className="bg-slate-50 rounded-xl p-5 border border-slate-100">
+              <div className="flex items-center justify-between mb-4">
+                <h5 className="font-bold text-slate-800">Cluster {p.cluster}</h5>
+                <span
+                  className="text-xs font-bold px-2 py-1 rounded-full"
+                  style={{ background: CLUSTER_COLORS[p.cluster] + '22', color: CLUSTER_COLORS[p.cluster] }}
+                >
+                  {p.n_estudiantes.toLocaleString('es-CO')} est.
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <p className="text-slate-400 text-xs font-bold uppercase">Plataforma</p>
+                  <p className="font-bold text-red-800">{p.plataforma_dominante}</p>
+                </div>
+                <div>
+                  <p className="text-slate-400 text-xs font-bold uppercase">Tasa de Oferta</p>
+                  <p className="font-bold text-slate-800">{p.offer_rate_pct.toFixed(1)}%</p>
+                </div>
+                <div>
+                  <p className="text-slate-400 text-xs font-bold uppercase">Aplicaciones Avg</p>
+                  <p className="font-bold text-slate-800">{p.aplicaciones_promedio}</p>
+                </div>
+                <div>
+                  <p className="text-slate-400 text-xs font-bold uppercase">Meses Búsqueda</p>
+                  <p className="font-bold text-slate-800">{p.meses_busqueda_promedio}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="p-4 bg-slate-900 text-slate-300 rounded-xl text-sm">
+          <p className="font-bold text-white mb-1">Hallazgo principal</p>
+          <p>{data.conclusion}</p>
+        </div>
+      </div>
+
+      <div className="card p-6">
+        <ImageGallery
+          tabs={[{
+            id: 'resultados',
+            label: 'Visualizaciones',
+            images: [
+              { filename: 'clustering_kmeans_scatter.png', label: 'KMeans — Proyección PCA 2D', section: 'clustering' },
+              { filename: 'clustering_silhouette_comparison.png', label: 'Comparativa Silhouette', section: 'clustering' },
+              { filename: 'clustering_offer_rate_by_cluster.png', label: 'Tasa de Oferta por Cluster', section: 'clustering' },
+            ],
+          }]}
+          title="Visualizaciones de Clustering"
+        />
+      </div>
+    </div>
+  );
+};
+
 // --- Model View ---
 
 const ClassificationResultCard = ({ result }: { result: ClassificationResult }) => {
@@ -1574,6 +1713,8 @@ export default function App() {
           <div className="max-w-7xl mx-auto">
             {activePage === 'eda' ? (
               <EDAView apiOnline={apiOnline} />
+            ) : activePage === 'clustering' ? (
+              <ClusteringView apiOnline={apiOnline} />
             ) : (
               <ModelView model={activeModel} apiOnline={apiOnline} />
             )}

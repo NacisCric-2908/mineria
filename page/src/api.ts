@@ -51,6 +51,45 @@ export interface EdaResponse {
   pie_data: PieItem[];
 }
 
+export interface ClusterProfile {
+  cluster: number;
+  n_estudiantes: number;
+  no_oferta: number;
+  si_oferta: number;
+  offer_rate_pct: number;
+  plataforma_dominante: string;
+  aplicaciones_promedio: number;
+  meses_busqueda_promedio: number;
+  entrevistas_primera_ronda: number;
+}
+
+export interface ClusteringResponse {
+  dataset_size: number;
+  baseline_offer_rate_pct: number;
+  algorithms: {
+    kmeans: {
+      k: number;
+      silhouette: number;
+      dunn: number;
+      cluster_profiles: ClusterProfile[];
+    };
+    jerarquico: {
+      k: number;
+      silhouette: number | null;
+      dunn: number | null;
+      sample_size: number;
+    };
+    dbscan: {
+      eps: number;
+      min_samples: number;
+      n_clusters: number;
+      n_ruido: number;
+      silhouette: number | null;
+    };
+  };
+  conclusion: string;
+}
+
 export interface ClassificationResult {
   type: 'classification';
   total: number;
@@ -87,6 +126,10 @@ export async function fetchSummaries(): Promise<SummariesResponse> {
 
 export async function fetchEda(): Promise<EdaResponse> {
   return apiFetch<EdaResponse>('/api/eda');
+}
+
+export async function fetchClustering(): Promise<ClusteringResponse> {
+  return apiFetch<ClusteringResponse>('/api/clustering');
 }
 
 export async function predictCsv(modelId: string, file: File): Promise<PredictionResult> {
