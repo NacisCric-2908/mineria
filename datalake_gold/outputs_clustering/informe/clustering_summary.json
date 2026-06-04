@@ -1,0 +1,54 @@
+{
+  "dataset_size": 100000,
+  "baseline_offer_rate_pct": 34.23,
+  "algorithms": {
+    "kmeans": {
+      "k": 2,
+      "silhouette": 0.0665,
+      "dunn": 0.2127,
+      "cluster_profiles": [
+        {
+          "cluster": 0,
+          "n_estudiantes": 35871,
+          "no_oferta": 22601,
+          "si_oferta": 13270,
+          "offer_rate_pct": 36.99,
+          "plataforma_dominante": "Handshake",
+          "aplicaciones_promedio": 32.2,
+          "meses_busqueda_promedio": 6.5,
+          "entrevistas_primera_ronda": 2.41
+        },
+        {
+          "cluster": 1,
+          "n_estudiantes": 64129,
+          "no_oferta": 43170,
+          "si_oferta": 20959,
+          "offer_rate_pct": 32.68,
+          "plataforma_dominante": "LinkedIn",
+          "aplicaciones_promedio": 65.8,
+          "meses_busqueda_promedio": 6.5,
+          "entrevistas_primera_ronda": 2.03
+        }
+      ]
+    },
+    "jerarquico": {
+      "k": 2,
+      "silhouette": 0.055,
+      "dunn": 0.152,
+      "sample_size": 5000
+    },
+    "dbscan": {
+      "eps": 4.0,
+      "min_samples": 5,
+      "n_clusters": 2,
+      "n_ruido": 97,
+      "silhouette": 0.1563
+    }
+  },
+  "conclusion": "No se encontraron clusters naturales alineados con empleabilidad. KMeans separó por plataforma de búsqueda (Handshake vs LinkedIn/Indeed), no por resultado laboral.",
+  "images": {
+    "kmeans_scatter": "/Users/apple/mineria/datalake_gold/outputs_clustering/imagenes/clustering_kmeans_scatter.png",
+    "silhouette_comparison": "/Users/apple/mineria/datalake_gold/outputs_clustering/imagenes/clustering_silhouette_comparison.png",
+    "offer_rate_by_cluster": "/Users/apple/mineria/datalake_gold/outputs_clustering/imagenes/clustering_offer_rate_by_cluster.png"
+  }
+}
