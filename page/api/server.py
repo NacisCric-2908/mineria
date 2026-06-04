@@ -58,6 +58,11 @@ MODEL_CONFIGS = {
         "summary": ROOT / "datalake_gold/outputs_naive_bayes/informe/naive_bayes_offer_received_summary.json",
         "type": "classification",
     },
+    "svm": {
+        "pkl": ROOT / "datalake_gold/outputs_svm/informe/svm_offer_received_improved.pkl",
+        "summary": ROOT / "datalake_gold/outputs_svm/informe/svm_offer_received_summary.json",
+        "type": "classification",
+    },
 }
 
 _models: dict = {}
@@ -127,7 +132,7 @@ def _normalize_metrics(model_id: str, raw: dict) -> dict:
             "pca_components": pca.get("n_components"),
             "pca_variance": pca.get("explained_variance"),
         }
-    elif model_id == "naive-bayes":
+    elif model_id in ("naive-bayes", "svm"):
         m = raw["metrics"]["threshold_optimized"]
         return {
             "type": "classification",
@@ -387,6 +392,7 @@ _IMAGE_DIRS: dict[str, Path] = {
     "logistica-pca": ROOT / "datalake_gold/PCA/outputs_logistica_pca/imagenes",
     "decision-tree-pca": ROOT / "datalake_gold/PCA/outputs_decision_tree_pca/imagenes",
     "naive-bayes": ROOT / "datalake_gold/outputs_naive_bayes/imagenes",
+    "svm": ROOT / "datalake_gold/outputs_svm/imagenes",
 }
 
 _ALLOWED_EXT = {".png", ".jpg", ".jpeg", ".svg"}

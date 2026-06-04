@@ -57,7 +57,7 @@ function cn(...inputs: ClassValue[]) {
 // --- Types ---
 
 type ViewState = 'landing' | 'login' | 'dashboard';
-type ModelID = 'eda' | 'logistica' | 'knn' | 'decision-tree' | 'salario' | 'logistica-pca' | 'decision-tree-pca' | 'naive-bayes';
+type ModelID = 'eda' | 'logistica' | 'knn' | 'decision-tree' | 'salario' | 'logistica-pca' | 'decision-tree-pca' | 'naive-bayes' | 'svm';
 
 interface ModelInfo {
   id: ModelID;
@@ -122,6 +122,13 @@ const MODEL_DEFINITIONS: Omit<ModelInfo, 'metrics'>[] = [
     id: 'naive-bayes',
     name: 'Naive Bayes',
     description: 'Clasificador probabilístico Gaussian con ajuste de umbral F-beta (1.5).',
+    category: 'ml',
+    icon: <BrainCircuit className="w-5 h-5" />,
+  },
+  {
+    id: 'svm',
+    name: 'Support Vector Machine',
+    description: 'SVM con kernel RBF y threshold F-beta para clasificación de oferta laboral.',
     category: 'ml',
     icon: <BrainCircuit className="w-5 h-5" />,
   },
@@ -648,6 +655,30 @@ const GALLERY_CONFIGS: Record<string, GalleryTab[]> = {
         { filename: 'naive_bayes_roc_base.png', label: 'Curva ROC (Base)', section: 'naive-bayes' },
         { filename: 'naive_bayes_pr_base.png', label: 'Precisión-Recall (Base)', section: 'naive-bayes' },
         { filename: 'naive_bayes_target_distribution.png', label: 'Distribución del Target', section: 'naive-bayes' },
+      ],
+    },
+  ],
+  svm: [
+    {
+      id: 'optimizado',
+      label: 'Modelo Optimizado (RBF)',
+      images: [
+        { filename: 'svm_confusion_matrix.png',       label: 'Matriz de Confusión',     section: 'svm' },
+        { filename: 'svm_roc_curve.png',              label: 'Curva ROC',               section: 'svm' },
+        { filename: 'svm_precision_recall_curve.png', label: 'Precisión-Recall',        section: 'svm' },
+        { filename: 'svm_threshold_tradeoff.png',     label: 'Análisis de Umbral',      section: 'svm' },
+        { filename: 'svm_model_comparison.png',       label: 'Comparativa Base vs RBF', section: 'svm' },
+      ],
+    },
+    {
+      id: 'base',
+      label: 'Modelo Base (Lineal)',
+      images: [
+        { filename: 'svm_confusion_matrix_base.png',  label: 'Confusión (Base)',        section: 'svm' },
+        { filename: 'svm_roc_curve_base.png',         label: 'Curva ROC (Base)',        section: 'svm' },
+        { filename: 'svm_pr_base.png',                label: 'Precisión-Recall (Base)', section: 'svm' },
+        { filename: 'comparativa_modelos_svm.png',    label: 'Comparativa Original',    section: 'svm' },
+        { filename: 'efecto_C_svm_rbf.png',           label: 'Efecto del Parámetro C',  section: 'svm' },
       ],
     },
   ],

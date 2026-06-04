@@ -30,6 +30,7 @@ export interface SummariesResponse {
   'logistica-pca'?: ModelMetrics;
   'decision-tree-pca'?: ModelMetrics;
   'naive-bayes'?: ModelMetrics;
+  svm?: ModelMetrics;
 }
 
 export interface PlatformRate { name: string; value: number }
