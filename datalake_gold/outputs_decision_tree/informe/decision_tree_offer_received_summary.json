@@ -1,0 +1,191 @@
+{
+  "model_name": "DecisionTreeClassifier",
+  "target": "Offer_Received",
+  "artifact_paths": {
+    "model": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\informe\\decision_tree_offer_received_improved.pkl",
+    "report": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\informe\\decision_tree_offer_received.md",
+    "summary_json": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\informe\\decision_tree_offer_received_summary.json",
+    "confusion_matrix": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\imagenes\\decision_tree_confusion_matrix.png",
+    "roc_curve": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\imagenes\\decision_tree_roc_curve.png",
+    "precision_recall_curve": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\imagenes\\decision_tree_precision_recall_curve.png",
+    "threshold_tradeoff": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\imagenes\\decision_tree_threshold_tradeoff.png",
+    "feature_importance": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\imagenes\\decision_tree_feature_importance.png",
+    "tree_preview": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\imagenes\\decision_tree_tree_preview.png",
+    "rule_comparison": "C:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_decision_tree\\imagenes\\decision_tree_rule_comparison.png"
+  },
+  "best_threshold": 0.32499999999999996,
+  "best_params": {
+    "model__ccp_alpha": 0.0001,
+    "model__criterion": "gini",
+    "model__max_depth": null,
+    "model__min_samples_leaf": 5,
+    "model__min_samples_split": 2
+  },
+  "metrics": {
+    "threshold_0_50": {
+      "Accuracy": 0.90155,
+      "Precision": 0.7928425603458629,
+      "Recall": 0.9643587496348233,
+      "F1-Score": 0.8702300138403744,
+      "F-beta (1.5)": 0.9041739533511726,
+      "ROC-AUC": 0.9671504500652088,
+      "Average Precision": 0.914007878458217
+    },
+    "threshold_optimized": {
+      "Accuracy": 0.8894,
+      "Precision": 0.7592882721575649,
+      "Recall": 0.9910896874087058,
+      "F1-Score": 0.8598403244202256,
+      "F-beta (1.5)": 0.9059861541938002,
+      "ROC-AUC": 0.9671504500652088,
+      "Average Precision": 0.914007878458217
+    }
+  },
+  "final_summary": [
+    {
+      "Indicador": "Accuracy (umbral 0.50)",
+      "Valor": 0.9015
+    },
+    {
+      "Indicador": "Precision (umbral 0.50)",
+      "Valor": 0.7928
+    },
+    {
+      "Indicador": "Recall (umbral 0.50)",
+      "Valor": 0.9644
+    },
+    {
+      "Indicador": "F1-Score (umbral 0.50)",
+      "Valor": 0.8702
+    },
+    {
+      "Indicador": "F-beta(1.5) (umbral 0.50)",
+      "Valor": 0.9042
+    },
+    {
+      "Indicador": "ROC-AUC",
+      "Valor": 0.9672
+    },
+    {
+      "Indicador": "Accuracy (umbral optimo)",
+      "Valor": 0.8894
+    },
+    {
+      "Indicador": "Precision (umbral optimo)",
+      "Valor": 0.7593
+    },
+    {
+      "Indicador": "Recall (umbral optimo)",
+      "Valor": 0.9911
+    },
+    {
+      "Indicador": "F1-Score (umbral optimo)",
+      "Valor": 0.8598
+    },
+    {
+      "Indicador": "F-beta(1.5) (umbral optimo)",
+      "Valor": 0.906
+    },
+    {
+      "Indicador": "TP (Verdaderos Positivos)",
+      "Valor": 6785.0
+    },
+    {
+      "Indicador": "FN (Falsos Negativos)",
+      "Valor": 61.0
+    },
+    {
+      "Indicador": "FP (Falsos Positivos)",
+      "Valor": 2151.0
+    },
+    {
+      "Indicador": "TN (Verdaderos Negativos)",
+      "Valor": 11003.0
+    }
+  ],
+  "comparison_focus": [
+    {
+      "Modelo": "Baseline optimizado (umbral 0.32)",
+      "Accuracy": 0.8894,
+      "Precision": 0.7593,
+      "Recall": 0.9911,
+      "F1-Score": 0.8598,
+      "F-beta(1.5)": 0.906
+    },
+    {
+      "Modelo": "Mejor manual por F1: Regla B (balanceada)",
+      "Accuracy": 0.8022,
+      "Precision": 0.6338,
+      "Recall": 1.0,
+      "F1-Score": 0.7758,
+      "F-beta(1.5)": 0.849
+    }
+  ],
+  "rules_comparison_top": [
+    {
+      "Regla": "Baseline arbol optimizado (umbral 0.32)",
+      "Accuracy": 0.8894,
+      "Precision": 0.7593,
+      "Recall": 0.9911,
+      "F1-Score": 0.8598,
+      "F-beta (1.5)": 0.906,
+      "Delta Accuracy": 0.0,
+      "Delta Precision": 0.0,
+      "Delta Recall": 0.0,
+      "Delta F1-Score": 0.0,
+      "Delta F-beta (1.5)": 0.0
+    },
+    {
+      "Regla": "Regla B (balanceada)",
+      "Accuracy": 0.8022,
+      "Precision": 0.6338,
+      "Recall": 1.0,
+      "F1-Score": 0.7758,
+      "F-beta (1.5)": 0.849,
+      "Delta Accuracy": -0.0872,
+      "Delta Precision": -0.1255,
+      "Delta Recall": 0.0089,
+      "Delta F1-Score": -0.084,
+      "Delta F-beta (1.5)": -0.0569
+    },
+    {
+      "Regla": "Regla C (alta cobertura)",
+      "Accuracy": 0.7218,
+      "Precision": 0.5517,
+      "Recall": 1.0,
+      "F1-Score": 0.7111,
+      "F-beta (1.5)": 0.8,
+      "Delta Accuracy": -0.1676,
+      "Delta Precision": -0.2076,
+      "Delta Recall": 0.0089,
+      "Delta F1-Score": -0.1488,
+      "Delta F-beta (1.5)": -0.106
+    },
+    {
+      "Regla": "Regla A (conservadora)",
+      "Accuracy": 0.6782,
+      "Precision": 0.5618,
+      "Recall": 0.2714,
+      "F1-Score": 0.366,
+      "F-beta (1.5)": 0.3227,
+      "Delta Accuracy": -0.2112,
+      "Delta Precision": -0.1974,
+      "Delta Recall": -0.7197,
+      "Delta F1-Score": -0.4938,
+      "Delta F-beta (1.5)": -0.5833
+    },
+    {
+      "Regla": "Regla D (muy estricta)",
+      "Accuracy": 0.6736,
+      "Precision": 0.584,
+      "Recall": 0.161,
+      "F1-Score": 0.2524,
+      "F-beta (1.5)": 0.2071,
+      "Delta Accuracy": -0.2158,
+      "Delta Precision": -0.1753,
+      "Delta Recall": -0.8301,
+      "Delta F1-Score": -0.6075,
+      "Delta F-beta (1.5)": -0.6988
+    }
+  ]
+}

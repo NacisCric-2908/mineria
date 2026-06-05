@@ -1,0 +1,4 @@
+variable,limite_inferior,limite_superior,pct_outliers
+GPA,2.12,4.28,0.37
+Applications_Submitted,-65.0,159.0,3.37
+Networking_Events_Attended,-1.0,7.0,1.19

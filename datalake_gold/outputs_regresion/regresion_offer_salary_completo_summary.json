@@ -1,0 +1,214 @@
+{
+  "model_name": "Offer_Salary regression comparison",
+  "target": "Offer_Salary",
+  "artifact_paths": {
+    "summary_json": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\regresion_offer_salary_completo_summary.json",
+    "comparison_csv": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\comparacion_modelos_regresion.csv",
+    "rmse_comparison_plot": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\comparacion_rmse_test.png",
+    "r2_comparison_plot": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\comparacion_r2_test.png"
+  },
+  "best_model": {
+    "modelo": "Lasso",
+    "slug": "lasso",
+    "MAE_train": 6388.4188630985,
+    "RMSE_train": 8014.7538606289,
+    "R2_train": 0.713970538,
+    "MAE_test": 6339.7907200245,
+    "RMSE_test": 7941.9347738055,
+    "R2_test": 0.7084726286,
+    "best_params": {
+      "model__alpha": 10
+    },
+    "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\lasso\\informe\\lasso_offer_salary.pkl"
+  },
+  "comparison": [
+    {
+      "modelo": "Lasso",
+      "slug": "lasso",
+      "MAE_train": 6388.4188630985,
+      "RMSE_train": 8014.7538606289,
+      "R2_train": 0.713970538,
+      "MAE_test": 6339.7907200245,
+      "RMSE_test": 7941.9347738055,
+      "R2_test": 0.7084726286,
+      "best_params": {
+        "model__alpha": 10
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\lasso\\informe\\lasso_offer_salary.pkl"
+    },
+    {
+      "modelo": "Ridge",
+      "slug": "ridge",
+      "MAE_train": 6388.0344502963,
+      "RMSE_train": 8014.240423804,
+      "R2_train": 0.7140071838,
+      "MAE_test": 6341.3403043868,
+      "RMSE_test": 7944.566869203,
+      "R2_test": 0.7082793621,
+      "best_params": {
+        "model__alpha": 1
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\ridge\\informe\\ridge_offer_salary.pkl"
+    },
+    {
+      "modelo": "Regresion lineal",
+      "slug": "linear_regression",
+      "MAE_train": 6388.0279758578,
+      "RMSE_train": 8014.2402124634,
+      "R2_train": 0.7140071988,
+      "MAE_test": 6341.336190478,
+      "RMSE_test": 7944.5915273789,
+      "R2_test": 0.7082775512,
+      "best_params": {
+        "fit_intercept": true,
+        "positive": false,
+        "n_jobs": null
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\linear_regression\\informe\\linear_regression_offer_salary.pkl"
+    },
+    {
+      "modelo": "Gradient Boosting",
+      "slug": "gradient_boosting",
+      "MAE_train": 6362.6054330755,
+      "RMSE_train": 7981.4820277715,
+      "R2_train": 0.7163404101,
+      "MAE_test": 6349.8630852719,
+      "RMSE_test": 7951.8338727176,
+      "R2_test": 0.7077454363,
+      "best_params": {
+        "model__learning_rate": 0.1,
+        "model__max_depth": 2,
+        "model__n_estimators": 200,
+        "model__subsample": 0.8
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\gradient_boosting\\informe\\gradient_boosting_offer_salary.pkl"
+    },
+    {
+      "modelo": "Random Forest",
+      "slug": "random_forest",
+      "MAE_train": 6233.9353735664,
+      "RMSE_train": 7820.8639719578,
+      "R2_train": 0.7276421764,
+      "MAE_test": 6421.5444294965,
+      "RMSE_test": 8031.7346127849,
+      "R2_test": 0.7018427289,
+      "best_params": {
+        "model__max_depth": 8,
+        "model__min_samples_leaf": 5,
+        "model__n_estimators": 400
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\random_forest\\informe\\random_forest_offer_salary.pkl"
+    },
+    {
+      "modelo": "Arbol de regresion",
+      "slug": "decision_tree",
+      "MAE_train": 6322.2534586239,
+      "RMSE_train": 7930.4045961167,
+      "R2_train": 0.7199593479,
+      "MAE_test": 6510.0689352044,
+      "RMSE_test": 8152.4855471216,
+      "R2_test": 0.6928102079,
+      "best_params": {
+        "model__max_depth": 8,
+        "model__min_samples_leaf": 5,
+        "model__min_samples_split": 2
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\decision_tree\\informe\\decision_tree_offer_salary.pkl"
+    }
+  ],
+  "top_models": [
+    {
+      "modelo": "Lasso",
+      "slug": "lasso",
+      "MAE_train": 6388.4188630985,
+      "RMSE_train": 8014.7538606289,
+      "R2_train": 0.713970538,
+      "MAE_test": 6339.7907200245,
+      "RMSE_test": 7941.9347738055,
+      "R2_test": 0.7084726286,
+      "best_params": {
+        "model__alpha": 10
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\lasso\\informe\\lasso_offer_salary.pkl"
+    },
+    {
+      "modelo": "Ridge",
+      "slug": "ridge",
+      "MAE_train": 6388.0344502963,
+      "RMSE_train": 8014.240423804,
+      "R2_train": 0.7140071838,
+      "MAE_test": 6341.3403043868,
+      "RMSE_test": 7944.566869203,
+      "R2_test": 0.7082793621,
+      "best_params": {
+        "model__alpha": 1
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\ridge\\informe\\ridge_offer_salary.pkl"
+    },
+    {
+      "modelo": "Regresion lineal",
+      "slug": "linear_regression",
+      "MAE_train": 6388.0279758578,
+      "RMSE_train": 8014.2402124634,
+      "R2_train": 0.7140071988,
+      "MAE_test": 6341.336190478,
+      "RMSE_test": 7944.5915273789,
+      "R2_test": 0.7082775512,
+      "best_params": {
+        "fit_intercept": true,
+        "positive": false,
+        "n_jobs": null
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\linear_regression\\informe\\linear_regression_offer_salary.pkl"
+    },
+    {
+      "modelo": "Gradient Boosting",
+      "slug": "gradient_boosting",
+      "MAE_train": 6362.6054330755,
+      "RMSE_train": 7981.4820277715,
+      "R2_train": 0.7163404101,
+      "MAE_test": 6349.8630852719,
+      "RMSE_test": 7951.8338727176,
+      "R2_test": 0.7077454363,
+      "best_params": {
+        "model__learning_rate": 0.1,
+        "model__max_depth": 2,
+        "model__n_estimators": 200,
+        "model__subsample": 0.8
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\gradient_boosting\\informe\\gradient_boosting_offer_salary.pkl"
+    },
+    {
+      "modelo": "Random Forest",
+      "slug": "random_forest",
+      "MAE_train": 6233.9353735664,
+      "RMSE_train": 7820.8639719578,
+      "R2_train": 0.7276421764,
+      "MAE_test": 6421.5444294965,
+      "RMSE_test": 8031.7346127849,
+      "R2_test": 0.7018427289,
+      "best_params": {
+        "model__max_depth": 8,
+        "model__min_samples_leaf": 5,
+        "model__n_estimators": 400
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\random_forest\\informe\\random_forest_offer_salary.pkl"
+    },
+    {
+      "modelo": "Arbol de regresion",
+      "slug": "decision_tree",
+      "MAE_train": 6322.2534586239,
+      "RMSE_train": 7930.4045961167,
+      "R2_train": 0.7199593479,
+      "MAE_test": 6510.0689352044,
+      "RMSE_test": 8152.4855471216,
+      "R2_test": 0.6928102079,
+      "best_params": {
+        "model__max_depth": 8,
+        "model__min_samples_leaf": 5,
+        "model__min_samples_split": 2
+      },
+      "model_path": "c:\\Users\\Salda\\Desktop\\Medallion\\datalake_gold\\outputs_regresion\\decision_tree\\informe\\decision_tree_offer_salary.pkl"
+    }
+  ]
+}

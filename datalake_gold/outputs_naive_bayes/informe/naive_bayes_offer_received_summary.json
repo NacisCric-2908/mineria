@@ -1,0 +1,148 @@
+{
+  "model_name": "GaussianNaiveBayes",
+  "target": "Offer_Received",
+  "artifact_paths": {
+    "model_base": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/informe/naive_bayes_offer_received_base.pkl",
+    "model_improved": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/informe/naive_bayes_offer_received_improved.pkl",
+    "summary_json": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/informe/naive_bayes_offer_received_summary.json",
+    "report_md": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/informe/naive_bayes_offer_received.md",
+    "target_distribution": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_target_distribution.png",
+    "confusion_matrix_base": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_confusion_matrix_base.png",
+    "roc_base": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_roc_base.png",
+    "pr_base": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_pr_base.png",
+    "confusion_matrix": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_confusion_matrix.png",
+    "roc_curve": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_roc_curve.png",
+    "precision_recall_curve": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_precision_recall_curve.png",
+    "threshold_tradeoff": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_threshold_tradeoff.png",
+    "model_comparison": "/home/naciscric/Documents/university/2026-1/mineria/datalake_gold/outputs_naive_bayes/imagenes/naive_bayes_model_comparison.png"
+  },
+  "best_params": {
+    "model__var_smoothing": 1e-06
+  },
+  "best_threshold": 0.22,
+  "metrics": {
+    "threshold_0_50": {
+      "Accuracy": 0.80145,
+      "Precision": 0.7278491044539547,
+      "Recall": 0.6707566462167689,
+      "F1-Score": 0.6981375902698593,
+      "F-beta (1.5)": 0.6873459988485895,
+      "ROC-AUC": 0.8803304200479801,
+      "Average Precision": 0.7522200426211418
+    },
+    "threshold_optimized": {
+      "Accuracy": 0.7743,
+      "Precision": 0.612722351121423,
+      "Recall": 0.9257960853052878,
+      "F1-Score": 0.7374054682955207,
+      "F-beta (1.5)": 0.800019419361103,
+      "ROC-AUC": 0.8803307420831213,
+      "Average Precision": 0.7522203539423117
+    }
+  },
+  "confusion_matrix": {
+    "threshold_0_50": {
+      "tn": 11437,
+      "fp": 1717,
+      "fn": 2254,
+      "tp": 4592
+    },
+    "threshold_optimized": {
+      "tn": 9148,
+      "fp": 4006,
+      "fn": 508,
+      "tp": 6338
+    }
+  },
+  "threshold_preview": [
+    {
+      "threshold": 0.2,
+      "precision": 0.6007302003370155,
+      "recall": 0.9373356704645048,
+      "f1": 0.7321999087174806,
+      "f_beta_1_5": 0.7994958885204424
+    },
+    {
+      "threshold": 0.22,
+      "precision": 0.612722351121423,
+      "recall": 0.9257960853052878,
+      "f1": 0.7374054682955207,
+      "f_beta_1_5": 0.800019419361103
+    },
+    {
+      "threshold": 0.3,
+      "precision": 0.6520523431383514,
+      "recall": 0.8515921706105756,
+      "f1": 0.7385823779058719,
+      "f_beta_1_5": 0.778307215182074
+    },
+    {
+      "threshold": 0.4,
+      "precision": 0.6951086956521739,
+      "recall": 0.7472976920829681,
+      "f1": 0.7202590454737435,
+      "f_beta_1_5": 0.7304237046148438
+    },
+    {
+      "threshold": 0.5,
+      "precision": 0.7278491044539547,
+      "recall": 0.6707566462167689,
+      "f1": 0.6981375902698593,
+      "f_beta_1_5": 0.6873459988485895
+    }
+  ],
+  "final_summary": [
+    {
+      "Indicador": "Accuracy (0.50)",
+      "Valor": 0.80145
+    },
+    {
+      "Indicador": "Accuracy (opt)",
+      "Valor": 0.7743
+    },
+    {
+      "Indicador": "Precision (0.50)",
+      "Valor": 0.727849
+    },
+    {
+      "Indicador": "Precision (opt)",
+      "Valor": 0.612722
+    },
+    {
+      "Indicador": "Recall (0.50)",
+      "Valor": 0.670757
+    },
+    {
+      "Indicador": "Recall (opt)",
+      "Valor": 0.925796
+    },
+    {
+      "Indicador": "F1-Score (0.50)",
+      "Valor": 0.698138
+    },
+    {
+      "Indicador": "F1-Score (opt)",
+      "Valor": 0.737405
+    },
+    {
+      "Indicador": "F-beta (1.5) (0.50)",
+      "Valor": 0.687346
+    },
+    {
+      "Indicador": "F-beta (1.5) (opt)",
+      "Valor": 0.800019
+    },
+    {
+      "Indicador": "ROC-AUC",
+      "Valor": 0.880331
+    },
+    {
+      "Indicador": "Average Precision",
+      "Valor": 0.75222
+    },
+    {
+      "Indicador": "Best threshold",
+      "Valor": 0.22
+    }
+  ]
+}
